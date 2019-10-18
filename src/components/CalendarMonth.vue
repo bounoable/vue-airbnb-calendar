@@ -138,7 +138,7 @@ export default createComponent<Props>({
     @apply border-none font-normal text-sm py-2 text-gray-600
   
   td
-    @apply p-0
+    @apply p-0 bg-white
   
 .AirbnbCalendarItem
   @apply text-center font-light -ml-px -mt-px

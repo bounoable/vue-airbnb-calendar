@@ -1,6 +1,6 @@
 <script lang="ts">
 import { createComponent, ref, computed, onMounted, watch } from '@vue/composition-api'
-import PickerMonth from './PickerMonth.vue'
+import PickerMonth from './CalendarMonth.vue'
 import Dictionary from '../dictionary'
 import useCalendar, { Calendar } from '../use/calendar'
 import useCalendarStyle from '../use/calendar-style'

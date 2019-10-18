@@ -67,10 +67,6 @@ export default createComponent({
           //   return selectable && isSaturday(item.date)
           // },
 
-          selectable(item, state) {
-            return !(isMonday(item.date) || isTuesday(item.date))
-          },
-
           onSelect(selection) {
             console.log(selection)
           },

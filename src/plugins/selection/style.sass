@@ -12,7 +12,7 @@
   background-color: var(--dp-sel-color-#{$state}-background)
   border-color: var(--dp-sel-color-#{$state}-border)
 
-  .CalendarItem__day
+  .AirbnbCalendarItem__day
     color: var(--dp-sel-color-#{$state}-text)
 
 \:root
@@ -25,7 +25,7 @@
   @include declare-colors(selected, #edf2f7, #cbd5e0, var(--dp-sel-color-text))
   @include declare-colors(highlighted, #edf2f7, #cbd5e0, var(--dp-sel-color-text))
   
-.CalendarItem
+.AirbnbCalendarItem
   @apply relative
 
   &.is-selectable
@@ -45,7 +45,7 @@
     @include apply-colors(within-selection)
 
     &.is-unselectable
-      .CalendarItem__day
+      .AirbnbCalendarItem__day
         color: var(--dp-sel-color-unselectable-text)
   
   &.is-within-selection.is-hovered
