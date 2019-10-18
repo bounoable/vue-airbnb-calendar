@@ -8,7 +8,7 @@ export { default as helpers } from './helpers'
 export { RootContext, CalendarContext } from './context'
 export { plugins }
 
-const AirbnbCalendar = AirbnbCalendarComponent as VueConstructor
+const AirbnbCalendar = AirbnbCalendarComponent as VueConstructor<any>
 
 export { AirbnbCalendar }
 
