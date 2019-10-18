@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": false,
   "license": "MIT",
+  "author": {
+    "name": "Saman Hosseini",
+    "email": "saman@modernice.ltd"
+  },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
