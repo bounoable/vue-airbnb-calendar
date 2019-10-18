@@ -174,6 +174,9 @@ export default createComponent<Props>({
   @apply absolute top-0 m-4 outline-none border text-sm rounded-sm w-12 h-10 p-2 z-10 bg-white
   transition: all 0.15s
 
+  &:focus
+    @apply outline-none
+
   @media screen and (min-width: 1024px)
     &:hover
       @apply bg-gray-100
