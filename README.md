@@ -61,29 +61,6 @@ export default {
 <AirbnbCalendar :options="options"/>
 ```
 
-### CDN
-
-```ts
-new Vue({
-  el: '#app',
-  data() {
-    const options = {
-      // ...
-    }
-
-    return { options }
-  }
-})
-```
-
-```html
-<body>
-  <div id="#app">
-    <airbnb-calendar :options="options"/>
-  </div>
-</body>
-```
-
 ## Calendar Options
 
 **This project is written in TypeScript, so you can and should discover the available options with your IDE.**
