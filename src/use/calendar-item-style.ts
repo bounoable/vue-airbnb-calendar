@@ -65,14 +65,14 @@ export default function useCalendarItemStyle(items: Ref<CalendarItem[]>, context
   }
 
   const styles = computed(() => {
-    return items.value.map(item => {
+    return items.value.map((item, i) => {
       let styles: Dictionary<string, number> = {}
 
       for (const plugin of context.value.calendarItemPlugins) {
         if (plugin.styles) {
           styles = {
             ...styles,
-            ...plugin.styles.apply(plugin, [item, context.value])
+            ...plugin.styles.apply(plugin, [item, classes.value[i] || [], context.value])
           }
         }
       }

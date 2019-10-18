@@ -51,6 +51,12 @@ export default createComponent({
             },
           },
 
+          css: {
+            selected: {
+              fontWeight: '600',
+            },
+          },
+
           dateFormat: 'dd-MM-yyyy',
           // ranges: [
           //   {

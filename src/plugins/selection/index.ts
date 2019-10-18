@@ -7,31 +7,21 @@ import { CalendarItem } from '../../use/calendar-items'
 import { Ref, ref, watch, onMounted } from '@vue/composition-api'
 import { cssVar } from '../../helpers/styles'
 
+export type ItemState = 'withinSelection'|'selectable'|'unselectable'|'selected'|'hovered'|'highlighted'
+
 export interface Options<F extends string|undefined> {
   /**
    * Custom colors for the calendar item states.
    */
   colors?: {
-    /**
-     * Calendar item is within selection range / hovered.
-     */
-    withinSelection?: CalendarItemColors
-    /**
-     * Calendar item is selectable.
-     */
-    selectable?: CalendarItemColors
-    /**
-     * Calendar item is not selectable.
-     */
-    unselectable?: CalendarItemColors
-    /**
-     * Calendar item is selected.
-     */
-    selected?: CalendarItemColors
-    /**
-     * Calendar item is highlighted.
-     */
-    highlighted?: CalendarItemColors
+    [state in ItemState]?: CalendarItemColors
+  }
+
+  /**
+   * Custom CSS for the calendar item states.
+   */
+  css?: {
+    [state in ItemState]?: Partial<CSSStyleDeclaration>
   }
 
   /**
@@ -350,6 +340,58 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
         }
   
         return classes
+      },
+
+      styles(item, classes, ctx) {
+        let styles: { [key: string]: string|number } = {}
+
+        if (!options.css) {
+          return styles
+        }
+
+        if (options.css.selectable && classes.indexOf('is-selectable') > -1) {
+          styles = {
+            ...styles,
+            ...options.css.selectable as any,
+          }
+        }
+
+        if (options.css.unselectable && classes.indexOf('is-unselectable') > -1) {
+          styles = {
+            ...styles,
+            ...options.css.unselectable as any,
+          }
+        }
+
+        if (options.css.hovered && classes.indexOf('is-hovered') > -1) {
+          styles = {
+            ...styles,
+            ...options.css.hovered as any,
+          }
+        }
+
+        if (options.css.withinSelection && classes.indexOf('is-within-selection') > -1) {
+          styles = {
+            ...styles,
+            ...options.css.withinSelection as any,
+          }
+        }
+
+        if (options.css.selected && classes.indexOf('is-selected') > -1) {
+          styles = {
+            ...styles,
+             ...options.css.selected as any,
+          }
+        }
+
+        if (options.css.highlighted && classes.indexOf('is-highlighted') > -1) {
+          styles = {
+            ...styles,
+            ...options.css.highlighted as any,
+          }
+        }
+
+        return styles
       },
 
       on: {

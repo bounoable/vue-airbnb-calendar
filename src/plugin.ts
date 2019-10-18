@@ -36,7 +36,7 @@ export interface CalendarItemPlugin {
   }
 
   classes?(item: CalendarItem, context: CalendarContext): string[]
-  styles?(item: CalendarItem, context: CalendarContext): Dictionary<string|number>
+  styles?(item: CalendarItem, classes: string[], context: CalendarContext): Dictionary<string|number>
 }
 
 export interface CalendarItemPluginHelpers {
