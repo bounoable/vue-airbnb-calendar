@@ -18,7 +18,11 @@ const config: Config = {
     }
   },
 
-  externals: ['lodash', 'uuid', 'date-fns', '@vue/composition-api', 'vue'],
+  externals: ['lodash', 'uuid', 'date-fns', 'vue', '@vue/composition-api'],
+
+  env: {
+    NODE_ENV: 'production',
+  },
 
   plugins: {
     vue: true,
