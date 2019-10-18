@@ -1,4 +1,4 @@
-import { CalendarItem } from './compose/calendar-items'
+import { CalendarItem } from './use/calendar-items'
 import { CalendarContext, RootContext } from './context'
 import Dictionary from './dictionary'
 

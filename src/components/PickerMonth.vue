@@ -1,12 +1,12 @@
 <script lang="ts">
 import { createComponent, computed, ref, onMounted } from '@vue/composition-api'
 import { eachDayOfInterval, endOfMonth, subMonths, addMonths, parse as parseDate, format as formatDate } from 'date-fns'
-import { Calendar } from '../compose/calendar'
+import { Calendar } from '../use/calendar'
 import dateFnsEnUs from 'date-fns/locale/en-US'
-import useLocalization from '../compose/localization'
+import useLocalization from '../use/localization'
 import Options from '../options'
-import useCalendarItems, { CalendarItem } from '../compose/calendar-items'
-import useCalendarItemStyle from '../compose/calendar-item-style'
+import useCalendarItems, { CalendarItem } from '../use/calendar-items'
+import useCalendarItemStyle from '../use/calendar-item-style'
 import { CalendarContext } from '../context'
 
 interface Props {

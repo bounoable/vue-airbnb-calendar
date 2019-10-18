@@ -1,5 +1,5 @@
 import { InternalOptions } from './options'
-import { Calendar } from './compose/calendar'
+import { Calendar } from './use/calendar'
 import { CalendarItemPlugin } from './plugin'
 
 export interface RootContext {

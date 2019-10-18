@@ -1,7 +1,7 @@
 import { Locale } from 'date-fns'
 import Plugin, { PluginFn } from './plugin'
-import { Calendar } from './compose/calendar'
-import { Options as LocalizationOptions } from './compose/localization'
+import { Calendar } from './use/calendar'
+import { Options as LocalizationOptions } from './use/localization'
 
 interface BaseOptions {
   /**

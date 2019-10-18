@@ -3,17 +3,16 @@ import { createComponent, ref, computed, onMounted, watch } from '@vue/compositi
 // @ts-ignore
 import PickerMonth from './PickerMonth.vue'
 import Dictionary from '../dictionary'
-import useCalendar, { Calendar } from '../compose/calendar'
-import useCalendarStyle from '../compose/calendar-style'
+import useCalendar, { Calendar } from '../use/calendar'
+import useCalendarStyle from '../use/calendar-style'
 import Options, { InternalOptions } from '../options'
-import { CalendarItem } from '../compose/calendar-items'
+import { CalendarItem } from '../use/calendar-items'
 // @ts-ignore
 import { v4 as uuid } from 'uuid'
 import dateFnsEnUs from 'date-fns/locale/en-US'
 import Plugin, { PluginFn } from '../plugin'
-import usePlugins from '../compose/plugins'
+import usePlugins from '../use/plugins'
 import { RootContext, CalendarContext } from '../context'
-import { autoHeight } from '@modernice/animate-height'
 
 interface Props {
   options: Partial<Options>

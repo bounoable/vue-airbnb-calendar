@@ -3,7 +3,7 @@ import './style.sass'
 import { PluginFn } from '../../plugin'
 import Dictionary from '../../dictionary'
 import { isAfter, isWithinInterval, format, Interval, isBefore } from 'date-fns'
-import { CalendarItem } from '../../compose/calendar-items'
+import { CalendarItem } from '../../use/calendar-items'
 import { Ref, ref, watch, onMounted } from '@vue/composition-api'
 import { cssVar } from '../../helpers/styles'
 

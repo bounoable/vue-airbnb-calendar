@@ -15,8 +15,8 @@
     "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/vue-airbnb-calendar.css"
   },
   "dependencies": {
-    "@modernice/animate-height": "^0.0.15",
     "@vue/composition-api": "^0.3.2",
+    "core-js": "^3.3.2",
     "date-fns": "^2.4.1",
     "lodash": "^4.17.15",
     "uuid": "^3.3.3",
