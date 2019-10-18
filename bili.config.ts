@@ -25,6 +25,7 @@ const config: Config = {
   },
 
   plugins: {
+    commonjs: true,
     vue: true,
   },
 
