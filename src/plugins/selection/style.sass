@@ -1,0 +1,56 @@
+@mixin declare-colors($state, $bg: null, $border: null, $text: null)
+  @if $bg != null
+    --dp-sel-color-#{$state}-background: #{$bg}
+  
+  @if $border != null
+    --dp-sel-color-#{$state}-border: #{$border}
+  
+  @if $text != null
+    --dp-sel-color-#{$state}-text: #{$text}
+
+@mixin apply-colors($state)
+  background-color: var(--dp-sel-color-#{$state}-background)
+  border-color: var(--dp-sel-color-#{$state}-border)
+
+  .CalendarItem__day
+    color: var(--dp-sel-color-#{$state}-text)
+
+\:root
+  --dp-sel-color-border: #e2e8f0
+  --dp-sel-color-text: #4a5568
+
+  @include declare-colors(selectable, #ffffff, var(--dp-sel-color-border), var(--dp-sel-color-text))
+  @include declare-colors(unselectable, #ffffff, var(--dp-sel-color-border), #a0aec0)
+  @include declare-colors(within-selection, #f7fafc, var(--dp-sel-color-border), var(--dp-sel-color-text))
+  @include declare-colors(selected, #edf2f7, #cbd5e0, var(--dp-sel-color-text))
+  @include declare-colors(highlighted, #edf2f7, #cbd5e0, var(--dp-sel-color-text))
+  
+.CalendarItem
+  @apply relative
+
+  &.is-selectable
+    @apply cursor-pointer
+    @include apply-colors(selectable)
+  
+  &.is-unselectable
+    @include apply-colors(unselectable)
+
+  &.is-highlighted
+    @apply z-10
+    @include apply-colors(highlighted)
+
+  &.is-within-selection,
+  &.is-hovered
+    @apply z-20
+    @include apply-colors(within-selection)
+
+    &.is-unselectable
+      .CalendarItem__day
+        color: var(--dp-sel-color-unselectable-text)
+  
+  &.is-within-selection.is-hovered
+    @include apply-colors(selected)
+
+  &.is-selected
+    @apply z-30
+    @include apply-colors(selected)
