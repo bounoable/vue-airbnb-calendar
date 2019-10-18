@@ -163,7 +163,7 @@ export default createComponent<Props>({
 </div>
 </template>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .AirbnbCalendar
   @apply relative opacity-0
 

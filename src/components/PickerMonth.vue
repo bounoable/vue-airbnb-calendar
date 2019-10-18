@@ -119,7 +119,7 @@ export default createComponent<Props>({
 </div>
 </template>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .AirbnbCalendarMonth
   @apply p-4
 
