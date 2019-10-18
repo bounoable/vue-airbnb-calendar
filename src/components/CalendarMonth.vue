@@ -104,7 +104,6 @@ export default createComponent<Props>({
           <div
             ref="calendarItemRefs"
             :data-num="r * 7 + c"
-            class="AirbnbCalendarItem"
             :class="calendarItemClasses[r * 7 + c]"
             :style="calendarItemStyles[r * 7 + c]"
           >
@@ -138,10 +137,10 @@ export default createComponent<Props>({
     @apply border-none font-normal text-sm py-2 text-gray-600
   
   td
-    @apply p-0 bg-white
+    @apply p-0
   
 .AirbnbCalendarItem
-  @apply text-center font-light -ml-px -mt-px
+  @apply text-center font-light -ml-px -mt-px bg-white
   padding-top: 0.4rem
   padding-bottom: 0.4rem
 
