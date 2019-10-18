@@ -29,6 +29,8 @@ const config: Config = {
     vue: true,
   },
 
+  bundleNodeModules: true,
+
   babel: {
     configFile: false,
   }
