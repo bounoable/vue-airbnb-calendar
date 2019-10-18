@@ -1,5 +1,5 @@
 // @ts-ignore
-import AirbnbCalendar from './components/AirbnbCalendar.vue'
+import AirbnbCalendarComponent from './components/AirbnbCalendar.vue'
 import { VueConstructor } from 'vue'
 import * as plugins from './plugins'
 export { default as Options } from './options'
@@ -8,9 +8,9 @@ export { default as helpers } from './helpers'
 export { RootContext, CalendarContext } from './context'
 export { plugins }
 
-const Component = AirbnbCalendar as VueConstructor
+const AirbnbCalendar = AirbnbCalendarComponent as VueConstructor
 
-export { Component }
+export { AirbnbCalendar }
 
 function install(Vue: VueConstructor, options: {
   name?: string

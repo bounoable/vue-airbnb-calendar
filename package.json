@@ -12,9 +12,7 @@
     "dev": "vue-cli-service serve dev/main.ts",
     "build": "rimraf ./dist && bili && yarn typings && yarn dist:cleanup",
     "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
-    "dist:cleanup": "yarn dist:css && yarn dist:typings",
-    "dist:css": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/vue-airbnb-calendar.css",
-    "dist:typings": "rimraf ./types/example && cp -r ./types/src/** ./types && rimraf ./types/src"
+    "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/vue-airbnb-calendar.css"
   },
   "dependencies": {
     "@modernice/animate-height": "^0.0.15",
