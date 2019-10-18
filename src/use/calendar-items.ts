@@ -1,8 +1,6 @@
 import { computed, Ref } from '@vue/composition-api'
 import { Calendar } from './calendar'
-import { endOfMonth, eachDayOfInterval, subMonths, addMonths, isBefore, isAfter } from 'date-fns'
-import { InternalOptions } from '@/options'
-import { isWithinInterval } from 'date-fns/esm'
+import { endOfMonth, eachDayOfInterval, subMonths, addMonths } from 'date-fns'
 
 export interface CalendarItem {
   date: Date

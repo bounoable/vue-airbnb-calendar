@@ -1,6 +1,6 @@
 import { ref, computed, Ref, watch } from '@vue/composition-api'
 import { InternalOptions } from '../options'
-import { subMonths, isBefore, isAfter } from 'date-fns'
+import { subMonths } from 'date-fns'
 import { debounce } from 'lodash'
 
 export interface Calendar {
