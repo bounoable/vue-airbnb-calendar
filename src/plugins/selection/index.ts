@@ -14,14 +14,14 @@ export interface Options<F extends string|undefined> {
    * Custom colors for the calendar item states.
    */
   colors?: {
-    [state in ItemState]?: CalendarItemColors
+    [state in ItemState|'base']?: CalendarItemColors
   }
 
   /**
    * Custom CSS for the calendar item states.
    */
   css?: {
-    [state in ItemState]?: Partial<CSSStyleDeclaration>
+    [state in ItemState|'base']?: Partial<CSSStyleDeclaration>
   }
 
   /**
@@ -268,16 +268,16 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
       clear: clearSelection,
     } = useSelection(rootContext.id)
 
-    onMounted(() => {
-      for (const state in options.colors) {
-        const colors = options.colors[state as keyof Options<F>['colors']] as CalendarItemColors
+    onMounted(() => watch(() => options.colors, colors => {
+      for (const state in colors) {
+        const stateColors = colors[state as keyof Options<F>['colors']] as CalendarItemColors
 
-        for (const key in colors) {
-          const color = colors[key as keyof CalendarItemColors]!
+        for (const key in stateColors) {
+          const color = stateColors[key as keyof CalendarItemColors]!
           document.documentElement.style.setProperty(cssVar(`sel-color-${state}-${key}`), color)
         }
       }
-    })
+    }))
 
     watch(selection, selection => {
       if ((selection.from || selection.to) && options.onSelect) {
@@ -349,6 +349,13 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
           return styles
         }
 
+        if (options.css.base) {
+          styles = {
+            ...styles,
+            ...options.css.base as any,
+          }
+        }
+
         if (options.css.selectable && classes.indexOf('is-selectable') > -1) {
           styles = {
             ...styles,
@@ -408,16 +415,9 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
 
           hoverItem.value = item
         },
-      },
-    })
-
-    installRootPlugin({
-      on: {
-        mouseleave() {
-          hoverItem.value = null
-
-          if (!selection.value.to) {
-            clearSelection()
+        mouseleave(item) {
+          if (hoverItem.value === item) {
+            hoverItem.value = null
           }
         }
       },

@@ -52,6 +52,9 @@ export default createComponent({
           },
 
           css: {
+            base: {
+              fontWeight: '400',
+            },
             selected: {
               fontWeight: '600',
             },

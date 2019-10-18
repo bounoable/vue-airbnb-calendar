@@ -9,24 +9,25 @@
     --dp-sel-color-#{$state}-text: #{$text}
 
 @mixin apply-colors($state)
-  background-color: var(--dp-sel-color-#{$state}-background)
-  border-color: var(--dp-sel-color-#{$state}-border)
+  background-color: var(--dp-sel-color-#{$state}-background, var(--dp-sel-color-base-background, white))
+  border-color: var(--dp-sel-color-#{$state}-border, var(--dp-sel-color-base-border, black))
 
   .AirbnbCalendarItem__day
     color: var(--dp-sel-color-#{$state}-text)
 
 \:root
-  --dp-sel-color-border: #e2e8f0
-  --dp-sel-color-text: #4a5568
+  --dp-sel-color-base-background: #ffffff
+  --dp-sel-color-base-border: #e2e8f0
+  --dp-sel-color-base-text: #4a5568
 
-  @include declare-colors(selectable, #ffffff, var(--dp-sel-color-border), var(--dp-sel-color-text))
-  @include declare-colors(unselectable, #ffffff, var(--dp-sel-color-border), #a0aec0)
-  @include declare-colors(within-selection, #f7fafc, var(--dp-sel-color-border), var(--dp-sel-color-text))
-  @include declare-colors(selected, #edf2f7, #cbd5e0, var(--dp-sel-color-text))
-  @include declare-colors(highlighted, #edf2f7, #cbd5e0, var(--dp-sel-color-text))
+  @include declare-colors(unselectable, #ffffff, null, #a0aec0)
+  @include declare-colors(within-selection, #f7fafc, null, null)
+  @include declare-colors(selected, #edf2f7, #cbd5e0, null)
+  @include declare-colors(highlighted, #edf2f7, #cbd5e0, null)
   
 .AirbnbCalendarItem
   @apply relative
+  @include apply-colors(base)
 
   &.is-selectable
     @apply cursor-pointer
