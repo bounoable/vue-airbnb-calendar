@@ -84,14 +84,14 @@ export default createComponent<Props>({
 </script>
 
 <template>
-<div class="PickerMonth" :class="{
+<div class="AirbnbCalendarMonth" :class="{
   'is-visible': isVisible,
 }">
-  <p class="PickerMonthHeading">
+  <p class="AirbnbCalendarMonth__heading">
     {{ formatDate(firstOfMonth, 'MMMM yyyy', { locale: context.options.dateFnsLocale }) }}
   </p>
 
-  <table class="PickerMonthTable" @mouseleave="hoverItem = null">
+  <table class="AirbnbCalendarMonth__table" @mouseleave="hoverItem = null">
     <thead>
       <tr>
         <th v-for="weekday of weekdaysShort" :key="weekday" v-text="weekday"></th>
@@ -104,11 +104,11 @@ export default createComponent<Props>({
           <div
             ref="calendarItemRefs"
             :data-num="r * 7 + c"
-            class="CalendarItem"
+            class="AirbnbCalendarItem"
             :class="calendarItemClasses[r * 7 + c]"
             :style="calendarItemStyles[r * 7 + c]"
           >
-            <span v-if="item.isCurrentMonth" class="CalendarItem__day">
+            <span v-if="item.isCurrentMonth" class="AirbnbCalendarItem__day">
               {{ formatDate(item.date, 'd') }}
             </span>
           </div>
@@ -120,18 +120,18 @@ export default createComponent<Props>({
 </template>
 
 <style lang="sass" scoped>
-.PickerMonth
+.AirbnbCalendarMonth
   @apply p-4
 
   &.is-visible
-    .PickerMonthHeading
+    .AirbnbCalendarMonth__heading
       @apply opacity-100
 
-.PickerMonthHeading
+.AirbnbCalendarMonth__heading
   @apply text-xl font-semibold text-center tracking-tight text-gray-700 py-1 mb-2 select-none opacity-0
   transition: opacity 0.35s
 
-.PickerMonthTable
+.AirbnbCalendarMonth__table
   @apply w-full table-fixed border-collapse border-none
 
   th
@@ -140,7 +140,7 @@ export default createComponent<Props>({
   td
     @apply p-0
   
-.CalendarItem
+.AirbnbCalendarItem
   @apply text-center font-light -ml-px -mt-px
   padding-top: 0.4rem
   padding-bottom: 0.4rem
@@ -148,6 +148,6 @@ export default createComponent<Props>({
   &.is-bordered
     @apply border
 
-.CalendarItem__day
+.AirbnbCalendarItem__day
   @apply text-gray-700 text-sm
 </style>
