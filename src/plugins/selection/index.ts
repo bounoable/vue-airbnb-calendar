@@ -279,16 +279,24 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
       }
     }))
 
-    watch(selection, selection => {
-      if ((selection.from || selection.to) && options.onSelect) {
+    watch(selection, sel => {
+      if (sel.from && sel.to && isBefore(sel.to.date, sel.from.date)) {
+        selection.value = {
+          from: sel.to,
+          to: sel.from,
+        }
+        return
+      }
+
+      if ((sel.from || sel.to) && options.onSelect) {
         // @ts-ignore
-        const from: (F extends undefined ? Date : string)|null = selection.from
-          ? (typeof options.dateFormat === 'undefined' ? selection.from.date : format(selection.from.date, options.dateFormat as string))
+        let from: (F extends undefined ? Date : string)|null = sel.from
+          ? (typeof options.dateFormat === 'undefined' ? sel.from.date : format(sel.from.date, options.dateFormat as string))
           : null
         
         // @ts-ignore
-        const to: (F extends undefined ? Date : string)|null = selection.to
-          ? (typeof options.dateFormat === 'undefined' ? selection.to.date : format(selection.to.date, options.dateFormat as string))
+        let to: (F extends undefined ? Date : string)|null = sel.to
+          ? (typeof options.dateFormat === 'undefined' ? sel.to.date : format(sel.to.date, options.dateFormat as string))
           : null
         
         options.onSelect.apply(options, [{
