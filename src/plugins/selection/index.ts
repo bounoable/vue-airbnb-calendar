@@ -155,7 +155,15 @@ const useSelection = (id: string) => {
       return
     }
 
-    selection.value.to = item
+    let from = selection.value.from
+    let to = item
+
+    if (isBefore(to.date, from.date)) {
+      to = from
+      from = item
+    }
+
+    selection.value = { from, to }
   }
 
   const clear = () => {
@@ -254,7 +262,7 @@ const useSelection = (id: string) => {
 }
 
 export default <F extends string|undefined = undefined>(options: Options<F> = {}): PluginFn => {
-  return (rootContext, { installRootPlugin, installCalendarItemPlugin }) => {
+  return (rootContext, { installCalendarItemPlugin }) => {
     const {
       selection,
       hoverItem,
@@ -280,14 +288,6 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
     }))
 
     watch(selection, sel => {
-      if (sel.from && sel.to && isBefore(sel.to.date, sel.from.date)) {
-        selection.value = {
-          from: sel.to,
-          to: sel.from,
-        }
-        return
-      }
-
       if ((sel.from || sel.to) && options.onSelect) {
         // @ts-ignore
         let from: (F extends undefined ? Date : string)|null = sel.from
