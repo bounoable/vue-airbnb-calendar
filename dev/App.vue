@@ -3,7 +3,7 @@ import { createComponent, ref, computed } from '@vue/composition-api'
 import AirbnbCalendar from '../src/components/AirbnbCalendar.vue'
 import Options from '../src/options'
 import SelectionPlugin from '../src/plugins/selection/index'
-import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday } from 'date-fns'
+import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays } from 'date-fns'
 import de from 'date-fns/locale/de'
 
 export default createComponent({
@@ -72,9 +72,17 @@ export default createComponent({
           //   return false
           // },
 
-          // highlight(item, { selectable }) {
-          //   return selectable && isSaturday(item.date)
-          // },
+          highlight(item, { selectable }) {
+            return selectable && isSaturday(item.date)
+          },
+
+          selectable(item, { selection, defaultValue }) {
+            if (!selection.from) {
+              return defaultValue
+            }
+
+            return differenceInDays(item.date, selection.from.date) <= 30
+          },
 
           onSelect(selection) {
             console.log(selection)
