@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createComponent, computed, ref, onMounted } from '@vue/composition-api'
+import { createComponent, computed, ref, onMounted, onBeforeMount, onBeforeUnmount, Ref } from '@vue/composition-api'
 import { eachDayOfInterval, endOfMonth, subMonths, addMonths, parse as parseDate, format as formatDate } from 'date-fns'
 import { Calendar } from '../use/calendar'
 import dateFnsEnUs from 'date-fns/locale/en-US'
@@ -8,6 +8,7 @@ import Options from '../options'
 import useCalendarItems, { CalendarItem } from '../use/calendar-items'
 import useCalendarItemStyle from '../use/calendar-item-style'
 import { CalendarContext } from '../context'
+import Dictionary from '../dictionary'
 
 interface Props {
   context: CalendarContext
@@ -49,23 +50,46 @@ export default createComponent<Props>({
 
     const calendarItemRefs = ref<HTMLTableCellElement[]>(null)
 
+    const calendarItemEventListeners = ref<{
+      el: HTMLElement
+      event: string
+      listener: any
+    }[]>([])
+
     onMounted(() => {
-      for (const plugin of props.context.calendarItemPlugins) {
-        for (const event in plugin.on || {}) {
-          const eventKey = event as keyof HTMLElementEventMap
+      if (!props.context.calendarItemPlugins.length) {
+        return
+      }
 
-          for (const itemRef of calendarItemRefs.value || []) {
-            const index = parseInt(itemRef.dataset.num!, 10)
-            const item = calendarItems.value[index]
+      for (const itemRef of calendarItemRefs.value || []) {
+        const index = parseInt(itemRef.dataset.num!, 10)
+        const item = calendarItems.value[index]
 
-            itemRef.addEventListener(eventKey, function(ev) {
+        for (const plugin of props.context.calendarItemPlugins) {
+          for (const event in plugin.on || {}) {
+            const eventKey = event as keyof HTMLElementEventMap
+            function listener(this: HTMLElement, ev: Event) {
               plugin.on![eventKey]!(item, this, ev as any, {
                 addClass: (...classNames: string[]) => addClass(item, ...classNames),
                 removeClass: (...classNames: string[]) => removeClass(item, ...classNames),
               }, props.context)
+            }
+
+            itemRef.addEventListener(eventKey, listener)
+
+            calendarItemEventListeners.value.push({
+              listener,
+              el: itemRef,
+              event: eventKey,
             })
           }
         }
+      }
+    })
+
+    onBeforeUnmount(() => {
+      for (const { el, event, listener } of calendarItemEventListeners.value) {
+        el.removeEventListener(event, listener)
       }
     })
 
