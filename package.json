@@ -19,6 +19,7 @@
     "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/vue-airbnb-calendar.css"
   },
   "dependencies": {
+    "@juggle/resize-observer": "^2.3.0",
     "@vue/composition-api": "^0.3.2",
     "core-js": "^3.3.2",
     "date-fns": "^2.4.1",

@@ -18,7 +18,7 @@ const config: Config = {
     }
   },
 
-  externals: ['lodash', 'uuid', 'date-fns', 'vue', '@vue/composition-api'],
+  externals: ['lodash', 'uuid', 'date-fns', 'vue', '@vue/composition-api', '@juggle/resize-observer'],
 
   env: {
     NODE_ENV: 'production',
