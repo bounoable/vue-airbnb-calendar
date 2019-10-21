@@ -7,6 +7,15 @@
     "name": "Saman Hosseini",
     "email": "saman@modernice.ltd"
   },
+  "keywords": [
+    "vue",
+    "airbnb",
+    "calendar",
+    "datepicker",
+    "composition",
+    "range",
+    "selection"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
