@@ -2,18 +2,14 @@ import { ref, computed, Ref, watch } from '@vue/composition-api'
 import { InternalOptions } from '../options'
 import { subMonths } from 'date-fns'
 import { debounce } from 'lodash'
-import ResizeObserverPonyfill from '@juggle/resize-observer'
+import { ResizeObserver as ResizeObserverPolyfill } from '@juggle/resize-observer'
 
 export interface Calendar {
   year: number
   month: number
 }
 
-const ResizeObserver = (
-  'ResizeObserver' in window ?
-  (window as any)['ResizeObserver'] :
-  ResizeObserverPonyfill
-) as typeof ResizeObserverPonyfill
+const ResizeObserver = ((window as any).ResizeObserver || ResizeObserverPolyfill) as typeof ResizeObserverPolyfill
 
 export default function useCalendar(picker: Ref<HTMLElement|null>, options: Ref<InternalOptions>) {
   const pickerWidth = ref(0)
