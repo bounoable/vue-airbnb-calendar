@@ -9,8 +9,6 @@ export interface Calendar {
   month: number
 }
 
-const ResizeObserver = ((window as any).ResizeObserver || ResizeObserverPonyfill) as typeof ResizeObserverPonyfill
-
 export default function useCalendar(picker: Ref<HTMLElement|null>, options: Ref<InternalOptions>) {
   const pickerWidth = ref(0)
 
@@ -20,6 +18,12 @@ export default function useCalendar(picker: Ref<HTMLElement|null>, options: Ref<
       pickerWidth.value = target.clientWidth
     }
   }, 250, { leading: false })
+
+  const ResizeObserver = (
+    typeof window !== 'undefined'
+      ? ((window as any).ResizeObserver || ResizeObserverPonyfill)
+      : ResizeObserverPonyfill
+  ) as typeof ResizeObserverPonyfill
 
   const ro = new ResizeObserver(roHandler)
 
