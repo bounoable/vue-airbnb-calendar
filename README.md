@@ -2,6 +2,8 @@
 
 # Vue Airbnb Calendar
 
+![Vue Airbnb Calendar](.github/recording.gif)
+
 [Examples](https://bounoable.github.io/vue-airbnb-calendar-examples/)
 
 This calendar / datepicker is inspired by the Datepicker from Airbnb ([react-dates](https://github.com/airbnb/react-dates)) and the existing [vue-airbnb-style-calendar](https://github.com/MikaelEdebro/vue-airbnb-style-datepicker). Unfortunately that project uses 1.x version of [date-fns](https://github.com/date-fns/date-fns), so I couldn't use it in my projects.
