@@ -29,10 +29,6 @@ export default createComponent({
       //   }
       // },
 
-      calendarItemRenderFn(h, item) {
-        return h('div', item.date.getDate().toString())
-      },
-
       plugins: [
         SelectionPlugin({
           // minDate: subDays(new Date(), 7),

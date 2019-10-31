@@ -2,8 +2,6 @@ import { Locale } from 'date-fns'
 import Plugin, { PluginFn } from './plugin'
 import { Calendar } from './use/calendar'
 import { Options as LocalizationOptions } from './use/localization'
-import { CreateElement, VNode } from 'vue'
-import { CalendarItem } from './use/calendar-items'
 
 interface BaseOptions {
   /**
@@ -44,11 +42,6 @@ interface BaseOptions {
    * Plugins to use.
    */
   plugins?: (Plugin|PluginFn)[]
-
-  /**
-   * Custom render function for calendar items.
-   */
-  calendarItemRenderFn?(h: CreateElement, item: CalendarItem): VNode
 }
 
 export default interface Options extends BaseOptions, Partial<LocalizationOptions> {

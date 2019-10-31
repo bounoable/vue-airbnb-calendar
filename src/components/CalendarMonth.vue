@@ -95,6 +95,12 @@ export default createComponent<Props>({
       }
     })
 
+    const calendarItemRenderFns = computed(() => {
+      return props.context.calendarItemPlugins
+        .map(plugin => plugin.calendarItemRenderFn)
+        .filter(renderFn => !!renderFn)
+    })
+
     return {
       firstOfMonth,
       formatDate,
@@ -104,6 +110,7 @@ export default createComponent<Props>({
       calendarItemStyles,
       isVisible,
       calendarItemRefs,
+      calendarItemRenderFns,
     }
   }
 })
@@ -133,13 +140,7 @@ export default createComponent<Props>({
             :class="calendarItemClasses[r * 7 + c]"
             :style="calendarItemStyles[r * 7 + c]"
           >
-            <template v-if="item.isCurrentMonth">
-              <span v-if="!context.options.calendarItemRenderFn" class="AirbnbCalendarItem__day">
-                {{ formatDate(item.date, 'd') }}
-              </span>
-
-              <RenderCalendarItem v-else :item="item" :render-fn="context.options.calendarItemRenderFn"/>
-            </template>
+            <RenderCalendarItem v-if="item.isCurrentMonth" :item="item" :render-fns="calendarItemRenderFns"/>
           </div>
         </td>
       </tr>
@@ -176,7 +177,7 @@ export default createComponent<Props>({
     @apply border
 
 .AirbnbCalendarItem__day
-  @apply text-gray-700 text-sm
+  @apply text-gray-700 text-sm block
   padding-top: 0.4rem
   padding-bottom: 0.4rem
 </style>

@@ -1,6 +1,7 @@
 import { CalendarItem } from './use/calendar-items'
 import { CalendarContext, RootContext } from './context'
 import Dictionary from './dictionary'
+import { CreateElement, VNode } from 'vue'
 
 export default interface Plugin {
   install(
@@ -34,6 +35,11 @@ export interface CalendarItemPlugin {
       context: CalendarContext
     ) => any
   }
+
+  /**
+   * Custom render function for calendar items.
+   */
+  calendarItemRenderFn?(h: CreateElement, item: CalendarItem, prev: VNode): VNode
 
   classes?(item: CalendarItem, context: CalendarContext): string[]
   styles?(item: CalendarItem, classes: string[], context: CalendarContext): Dictionary<string|number>

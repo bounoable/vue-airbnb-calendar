@@ -1,20 +1,29 @@
 import { createComponent } from '@vue/composition-api'
 import { CalendarItem } from '../use/calendar-items'
-import { InternalOptions } from '../options'
+import { CalendarItemPlugin } from '../plugin'
+import { format } from 'date-fns'
 
 interface Props {
   item: CalendarItem
-  renderFn: InternalOptions['calendarItemRenderFn'] & {}
+  renderFns: Array<CalendarItemPlugin['calendarItemRenderFn'] & {}>
 }
 
 export default createComponent<Props>({
   props: {
     item: Object,
-    renderFn: Function,
+    renderFns: Array,
   } as const,
 
   render(h) {
-    const t = this as any
-    return t.renderFn(h, t.item)
+    const p = this as Props
+    let vnode = h('span', {
+      class: 'AirbnbCalendarItem__day',
+    }, format(p.item.date, 'd'))
+
+    for (const renderFn of p.renderFns) {
+      vnode = renderFn(h, p.item, vnode)
+    }
+
+    return vnode
   },
 })
