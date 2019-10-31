@@ -101,7 +101,7 @@ export default createComponent({
 <template>
 <div id="app">
   <div class="flex justify-center items-start h-screen p-4 lg:pt-64">
-    <div class="border w-full max-w-2xl">
+    <div class="border container">
       <AirbnbCalendar :options="options"/>
     </div>
   </div>

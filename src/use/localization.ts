@@ -3,6 +3,11 @@ import { Locale, eachDayOfInterval, startOfWeek, endOfWeek } from 'date-fns'
 
 export interface Options {
   /**
+   * The date-fns locale to use. Defauls to english.
+   */
+  dateFnsLocale: Locale
+
+  /**
    * The number of character used for the shortened weekdays.
    */
   shortWeekdaysLength: number

@@ -46,11 +46,6 @@ interface BaseOptions {
 
 export default interface Options extends BaseOptions, Partial<LocalizationOptions> {
   /**
-   * The date-fns locale to use. Defauls to english.
-   */
-  dateFnsLocale?: Locale
-
-  /**
    * The maximum number of visible months.
    */
   maxMonths?: number

@@ -64,7 +64,7 @@ export default function useCalendar(picker: Ref<HTMLElement|null>, options: Ref<
   const visibleCalendars = computed(() => {
     let count = maxVisibleCalendars.value.length
 
-    count = 1 + Math.round((pickerWidth.value - 300) / (420))
+    count = 1 + Math.round((pickerWidth.value - 300) / (350))
     count = count <= 0 ? 1 : count
     count = count > maxVisibleCalendars.value.length ? maxVisibleCalendars.value.length : count
 
