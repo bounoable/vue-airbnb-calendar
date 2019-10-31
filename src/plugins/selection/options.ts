@@ -12,7 +12,9 @@ export interface Interval {
   end: Date
 }
 
-export default interface Options<F extends string|undefined> {
+export type DateFormat = string|undefined
+
+export default interface Options<F extends DateFormat = undefined> {
   /**
    * Custom colors for the calendar item states.
    */
@@ -54,9 +56,22 @@ export default interface Options<F extends string|undefined> {
   blockedRanges?: Interval[]|(() => Interval[])
 
   /**
+   * Allow the selection to overlap with the start and end date of the blocked ranges.
+   */
+  allowBlockedStartEndOverlap?: boolean
+
+  /**
    * Specify the minimum days the user has to select.
    */
   minDays?: number|((state: {
+    selection: Selection
+  }) => number)
+
+  /**
+   * Specify the maximum allowed gap between a blocked range and the selection.
+   * This option is enabled only if minDays is greater than 0.
+   */
+  maxGapBlocked?: number|((state: {
     selection: Selection
   }) => number)
 

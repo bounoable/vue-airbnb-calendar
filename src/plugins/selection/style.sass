@@ -62,5 +62,21 @@
   
   &.is-blocked,
   &.is-unselectable.is-blocked
-    @apply z-20
-    @include apply-colors(blocked)
+    &:not(.is-blocked-start-day):not(.is-blocked-end-day)
+      @apply z-20 pointer-events-none
+      @include apply-colors(blocked)
+    
+    &.is-blocked-start-day.is-blocked-end-day
+      @apply pointer-events-none
+
+.AirbnbCalendarItem__intervalStartEnd
+  @apply absolute inset-0 overflow-hidden z-10
+
+  + .AirbnbCalendarItem__day
+    @apply relative z-20
+
+.AirbnbCalendarItem__intervalStartEnd-svg
+  @apply w-full h-full absolute inset-0 z-10
+  fill: var(--dp-sel-color-blocked-background)
+  stroke: var(--dp-sel-color-blocked-border)
+  stroke-width: 2

@@ -39,7 +39,10 @@ export interface CalendarItemPlugin {
   /**
    * Custom render function for calendar items.
    */
-  calendarItemRenderFn?(h: CreateElement, item: CalendarItem, prev: VNode): VNode
+  calendarItemRenderFn?(h: CreateElement, prev: VNode, state: {
+    item: CalendarItem
+    classes: string[]
+  }): VNode
 
   classes?(item: CalendarItem, context: CalendarContext): string[]
   styles?(item: CalendarItem, classes: string[], context: CalendarContext): Dictionary<string|number>

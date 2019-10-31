@@ -1,14 +1,14 @@
 // @ts-ignore
 import './style.sass'
 import { PluginFn } from '../../plugin'
-import { format } from 'date-fns'
+import { format, isSameDay } from 'date-fns'
 import { watch, onMounted } from '@vue/composition-api'
 import { cssVar } from '../../helpers/styles'
-import useSelection from './selection'
-import Options, { CalendarItemColors } from './options'
+import useSelection, { findRangesOfItem } from './selection'
+import Options, { CalendarItemColors, DateFormat } from './options'
 
-export default <F extends string|undefined = undefined>(options: Options<F> = {}): PluginFn => {
-  return (rootContext, { installCalendarItemPlugin }) => {
+export default <F extends DateFormat = undefined>(options: Options<F> = {}): PluginFn => {
+  return (rootContext, { installRootPlugin, installCalendarItemPlugin }) => {
     const {
       selection,
       hoverItem,
@@ -20,6 +20,7 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
       isBeforeMinDate,
       isAfterMaxDate,
       isBlocked,
+      clear: clearSelection,
     } = useSelection(rootContext.id)
 
     onMounted(() => watch(() => options.colors, colors => {
@@ -52,6 +53,16 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
       }
     }, { deep: true })
 
+    installRootPlugin({
+      on: {
+        keyup(el, ev) {
+          if (ev.key === 'Escape') {
+            clearSelection(selection)
+          }
+        }
+      },
+    })
+
     installCalendarItemPlugin({
       classes(item) {
         const classes: string[] = []
@@ -73,6 +84,23 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
           blocked,
         }) : false
 
+        let blockedStartDay = false
+        let blockedEndDay = false
+
+        if (options.allowBlockedStartEndOverlap) {
+          const blockedRanges = findRangesOfItem(item, options.blockedRanges)
+  
+          for (const range of blockedRanges) {
+            if (isSameDay(range.start, item.date)) {
+              blockedStartDay = true
+            }
+  
+            if (isSameDay(range.end, item.date)) {
+              blockedEndDay = true
+            }
+          }
+        }
+
         if (selectable) {
           classes.push('is-selectable')
         } else {
@@ -87,7 +115,7 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
           classes.push('is-within-selection')
         }
 
-        if (selected || item === hoverItem.value) {
+        if (selected) {
           classes.push('is-selected')
         }
 
@@ -97,6 +125,16 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
 
         if (blocked) {
           classes.push('is-blocked')
+        }
+
+        if (!(blockedStartDay && blockedEndDay)) {
+          if (blockedStartDay) {
+            classes.push('is-blocked-start-day')
+          }
+  
+          if (blockedEndDay) {
+            classes.push('is-blocked-end-day')
+          }
         }
   
         return classes
@@ -186,8 +224,63 @@ export default <F extends string|undefined = undefined>(options: Options<F> = {}
           if (hoverItem.value === item) {
             hoverItem.value = null
           }
-        }
+        },
       },
+
+      calendarItemRenderFn(h, prev, { item, classes }) {
+        if (!options.allowBlockedStartEndOverlap) {
+          return prev
+        }
+
+        if (classes.indexOf('is-hovered') > -1 || classes.indexOf('is-selected') > -1) {
+          return prev
+        }
+
+        if (classes.indexOf('is-blocked-start-day') > -1) {
+          prev.children!.unshift(
+            h('div', { staticClass: 'AirbnbCalendarItem__intervalStartEnd' }, [
+              h('svg', {
+                class: 'AirbnbCalendarItem__intervalStartEnd-svg',
+                attrs: {
+                  viewBox: '0 0 100 100',
+                  preserveAspectRatio: 'none',
+                  'shape-rendering': 'geometricPrecision',
+                },
+              }, [
+                h('path', {
+                  attrs: {
+                    d: 'M-1 101 L 101 101 L 101 -1 L -1 101',
+                  }
+                })
+              ])
+            ])
+          )
+        }
+
+        if (classes.indexOf('is-blocked-end-day') > -1) {
+          prev.children!.unshift(
+            h('div', { staticClass: 'AirbnbCalendarItem__intervalStartEnd' }, [
+              h('svg', {
+                class: 'AirbnbCalendarItem__intervalStartEnd-svg',
+                attrs: {
+                  viewBox: '0 0 100 100',
+                  preserveAspectRatio: 'none',
+                  'shape-rendering': 'geometricPrecision',
+                },
+              }, [
+                h('path', {
+                  attrs: {
+                    d: 'M-1 -1 L 101 -1 L -1 101 L -1 -1',
+                  }
+                })
+              ])
+            ])
+          )
+        }
+
+
+        return prev
+      }
     })
   }
 }

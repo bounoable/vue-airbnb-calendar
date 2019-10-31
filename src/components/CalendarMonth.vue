@@ -50,7 +50,7 @@ export default createComponent<Props>({
       return props.context.visibleCalendars.indexOf(props.context.calendar) > -1
     })
 
-    const calendarItemRefs = ref<HTMLTableCellElement[]>(null)
+    const calendarItemRefs = ref<any[]>(null)
 
     const calendarItemEventListeners = ref<{
       el: HTMLElement
@@ -64,7 +64,8 @@ export default createComponent<Props>({
       }
 
       for (const itemRef of calendarItemRefs.value || []) {
-        const index = parseInt(itemRef.dataset.num!, 10)
+        const el = itemRef.$el as HTMLElement
+        const index = parseInt(el.dataset.num!, 10)
         const item = calendarItems.value[index]
 
         for (const plugin of props.context.calendarItemPlugins) {
@@ -77,11 +78,11 @@ export default createComponent<Props>({
               }, props.context)
             }
 
-            itemRef.addEventListener(eventKey, listener)
+            el.addEventListener(eventKey, listener)
 
             calendarItemEventListeners.value.push({
+              el,
               listener,
-              el: itemRef,
               event: eventKey,
             })
           }
@@ -134,14 +135,14 @@ export default createComponent<Props>({
     <tbody>
       <tr v-for="(row, r) of calendarRows" :key="r">
         <td v-for="(item, c) of row.items" :key="c">
-          <div
+          <RenderCalendarItem
             ref="calendarItemRefs"
-            :data-num="r * 7 + c"
-            :class="calendarItemClasses[r * 7 + c]"
-            :style="calendarItemStyles[r * 7 + c]"
-          >
-            <RenderCalendarItem v-if="item.isCurrentMonth" :item="item" :render-fns="calendarItemRenderFns"/>
-          </div>
+            :data-num="r * 7 + c" v-if="item.isCurrentMonth"
+            :item="item"
+            :classes="calendarItemClasses[r * 7 + c]"
+            :styles="calendarItemStyles[r * 7 + c]"
+            :render-fns="calendarItemRenderFns"
+          />
         </td>
       </tr>
     </tbody>

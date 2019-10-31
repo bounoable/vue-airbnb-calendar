@@ -75,7 +75,11 @@ export default createComponent({
           blockedRanges: [
             {
               start: addDays(new Date(), 4),
-              end: addDays(new Date(), 33),
+              end: addDays(new Date(), 12),
+            },
+            {
+              start: addDays(new Date(), 12),
+              end: addDays(new Date(), 20),
             },
             {
               start: addDays(new Date(), 40),
@@ -83,18 +87,29 @@ export default createComponent({
             }
           ],
 
-          minDays: 8,
+          allowBlockedStartEndOverlap: false,
+
+          minDays: 7,
+          maxGapBlocked: 4,
 
           // highlight(item, { selectable }) {
           //   return selectable && isSaturday(item.date)
           // },
 
           // selectable(item, { selection, defaultValue }) {
-          //   if (!selection.from) {
+          //   if (!defaultValue) {
+          //     return false
+          //   }
+
+          //   if (selection.from && selection.to) {
+          //     return isSaturday(item.date)
+          //   }
+
+          //   if (selection.from && !selection.to) {
           //     return defaultValue
           //   }
 
-          //   return differenceInDays(item.date, selection.from.date) <= 30
+          //   return isSaturday(item.date)
           // },
 
           onSelect(selection) {
