@@ -72,17 +72,28 @@ export default createComponent({
           //   return false
           // },
 
-          highlight(item, { selectable }) {
-            return selectable && isSaturday(item.date)
-          },
-
-          selectable(item, { selection, defaultValue }) {
-            if (!selection.from) {
-              return defaultValue
+          blockedRanges: [
+            {
+              start: addDays(new Date(), 4),
+              end: addDays(new Date(), 33),
+            },
+            {
+              start: addDays(new Date(), 40),
+              end: addDays(new Date(), 50),
             }
+          ],
 
-            return differenceInDays(item.date, selection.from.date) <= 30
-          },
+          // highlight(item, { selectable }) {
+          //   return selectable && isSaturday(item.date)
+          // },
+
+          // selectable(item, { selection, defaultValue }) {
+          //   if (!selection.from) {
+          //     return defaultValue
+          //   }
+
+          //   return differenceInDays(item.date, selection.from.date) <= 30
+          // },
 
           onSelect(selection) {
             console.log(selection)

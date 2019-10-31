@@ -24,6 +24,7 @@
   @include declare-colors(within-selection, #f7fafc, null, null)
   @include declare-colors(selected, #edf2f7, #cbd5e0, null)
   @include declare-colors(highlighted, #edf2f7, #cbd5e0, null)
+  @include declare-colors(blocked, #fff5f5, #feb2b2, #e53e3e)
   
 .AirbnbCalendarItem
   @apply relative
@@ -56,3 +57,7 @@
   &.is-highlighted
     @apply z-10
     @include apply-colors(highlighted)
+  
+  &.is-blocked
+    @apply z-20
+    @include apply-colors(blocked)

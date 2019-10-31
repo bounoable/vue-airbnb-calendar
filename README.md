@@ -150,7 +150,8 @@ interface CalendarItemColors {
 | dateFormat | String | The date format for the returned dates. If not provided Date objects are returned. |
 | minDate | Date | The minimum Date that can be selected. |
 | maxDate | Date | The maximum Date that can be selected. |
-| ranges | Array | Date ranges that are selectable. If not provided all days are selectable. |
+| selectableRanges | Array | Date ranges that are selectable. If not provided all days are selectable. |
+| blockedRanges | Array | Date ranges that are blocked. |
 | selectable | Function | Function to determine if a day is selectable. |
 | highlight | Function | Function to determine if a day is highlighted. |
 | onSelect | Function | Function that is called when the selection changes. |
