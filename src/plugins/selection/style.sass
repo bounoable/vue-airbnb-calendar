@@ -36,7 +36,7 @@
 
     &.is-within-selection,
     &.is-hovered
-      @apply z-20
+      @apply z-30
       @include apply-colors(within-selection)
 
       &.is-unselectable
@@ -44,11 +44,11 @@
           color: var(--dp-sel-color-unselectable-text)
     
     &.is-within-selection.is-hovered
-      @apply z-40
+      @apply z-50
       @include apply-colors(selected)
 
     &.is-selected
-      @apply z-30
+      @apply z-40
       @include apply-colors(selected)
   
   &.is-unselectable
