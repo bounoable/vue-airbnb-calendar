@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createComponent, ref, computed } from '@vue/composition-api'
+import { createComponent, ref, computed, onMounted } from '@vue/composition-api'
 import AirbnbCalendar from '../src/components/AirbnbCalendar.vue'
 import Options from '../src/options'
 import SelectionPlugin from '../src/plugins/selection/index'
@@ -28,6 +28,10 @@ export default createComponent({
       //     console.log(calendars)
       //   }
       // },
+
+      calendarItemRenderFn(h, item) {
+        return h('div', item.date.getDate().toString())
+      },
 
       plugins: [
         SelectionPlugin({

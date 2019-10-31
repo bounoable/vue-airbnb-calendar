@@ -1,8 +1,8 @@
 import { Ref, ref } from '@vue/composition-api'
 import { CalendarItem } from '../../use/calendar-items'
-import { isBefore, isAfter, isWithinInterval, areIntervalsOverlapping, differenceInDays, Interval } from 'date-fns'
+import { isBefore, isAfter, isWithinInterval, areIntervalsOverlapping, differenceInDays, subDays, addDays } from 'date-fns'
 import Dictionary from '../../dictionary'
-import Options, { Selection } from './options'
+import Options, { Selection, Interval } from './options'
 
 export const selectItem = (item: CalendarItem, selection: Ref<Selection>) => {
   if (selection.value.from && selection.value.to) {
@@ -44,6 +44,69 @@ const orderedInterval = (date1: Date, date2: Date): Interval => {
   const end = date1 === start ? date2 : date1
 
   return { start, end }
+}
+
+const selectionWrapsRanges = (selection: Selection, ranges?: Interval[]|(() => Interval[])) => {
+  if (!ranges) {
+    return
+  }
+
+  if (!(selection.from && selection.to)) {
+    return false
+  }
+
+  return intervalWrapsRanges({ start: selection.from.date, end: selection.to.date }, ranges)
+}
+
+const intervalWrapsRanges = (interval: Interval, ranges?: Interval[]|(() => Interval[])) => {
+  if (!ranges) {
+    return
+  }
+
+  ranges = ranges instanceof Function ? ranges() : ranges
+  if (!(ranges.length && interval.start && interval.end)) {
+    return false
+  }
+
+  const selectionInterval = orderedInterval(interval.start, interval.end)
+
+  for (const range of ranges) {
+    if (areIntervalsOverlapping(selectionInterval, range)) {
+      return true
+    }
+  }
+
+  return false
+}
+
+const satisfiesMinDays = <F extends string|undefined>(selection: Selection, item: CalendarItem, options: Options<F>) => {
+  if (!options.minDays) {
+    return true
+  }
+
+  const minDays = options.minDays instanceof Function ? options.minDays({ selection }) : options.minDays
+
+  if (!(selection.from || selection.to)) {
+    const ranges: Interval[] = [
+      { start: subDays(item.date, minDays), end: item.date },
+      { start: item.date, end: addDays(item.date, minDays) }
+    ]
+
+    if (intervalWrapsRanges(ranges[0], options.blockedRanges) && intervalWrapsRanges(ranges[1], options.blockedRanges)) {
+      return false
+    }
+  }
+
+  if (selection.from && !selection.to) {
+    const { start, end } = orderedInterval(selection.from.date, item.date)
+    const days = differenceInDays(end, start)
+
+    if (days < minDays) {
+      return false
+    }
+  }
+
+  return true
 }
 
 export default function useSelection(id: string) {
@@ -107,25 +170,13 @@ export default function useSelection(id: string) {
     }, options.blockedRanges)
     const beforeMinDate = isBeforeMinDate(item, options.minDate)
     const afterMaxDate = isAfterMaxDate(item, options.maxDate)
-
-    let hasMinDays = true
-    if (selection.value.from && !selection.value.to && options.minDays) {
-      const minDays = options.minDays instanceof Function ? options.minDays({
-        selection: selection.value
-      }) : options.minDays
-      const { start, end } = orderedInterval(selection.value.from.date, item.date)
-      const days = differenceInDays(end, start)
-
-      if (days < minDays) {
-        hasMinDays = false
-      }
-    }
+    const satMinDays = satisfiesMinDays(selection.value, item, options)
 
     const defaultValue = !(
       (options.selectableRanges && !selectableRanges.length) ||
       blockedRanges.length ||
       wrapsBlockedRanges ||
-      !hasMinDays ||
+      !satMinDays ||
       beforeMinDate || afterMaxDate
     )
 
@@ -141,27 +192,6 @@ export default function useSelection(id: string) {
     }
 
     return defaultValue
-  }
-
-  const selectionWrapsRanges = (selection: Selection, ranges?: Interval[]|(() => Interval[])) => {
-    if (!ranges) {
-      return
-    }
-
-    ranges = ranges instanceof Function ? ranges() : ranges
-    if (!(ranges.length && selection.from && selection.to)) {
-      return false
-    }
-
-    const selectionInterval = orderedInterval(selection.from.date, selection.to.date)
-
-    for (const range of ranges) {
-      if (areIntervalsOverlapping(selectionInterval, range)) {
-        return true
-      }
-    }
-
-    return false
   }
 
   const isBlocked = <F extends string|undefined>(item: CalendarItem, options: Options<F>) => {

@@ -7,6 +7,11 @@ export interface Selection {
   to: CalendarItem|null
 }
 
+export interface Interval {
+  start: Date
+  end: Date
+}
+
 export default interface Options<F extends string|undefined> {
   /**
    * Custom colors for the calendar item states.

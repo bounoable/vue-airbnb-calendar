@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createComponent, ref, computed, onMounted, watch } from '@vue/composition-api'
+import { createComponent, ref, computed, onMounted, watch, onBeforeUnmount } from '@vue/composition-api'
 import PickerMonth from './CalendarMonth.vue'
 import Dictionary from '../dictionary'
 import useCalendar, { Calendar } from '../use/calendar'
@@ -12,6 +12,7 @@ import dateFnsEnUs from 'date-fns/locale/en-US'
 import Plugin, { PluginFn } from '../plugin'
 import usePlugins from '../use/plugins'
 import { RootContext, CalendarContext } from '../context'
+import { VNode } from 'vue'
 
 interface Props {
   options: Partial<Options>
@@ -37,7 +38,7 @@ export default createComponent<Props>({
     },
   } as const,
 
-  setup(props, { root: { $nextTick } }) {
+  setup(props, { root: { $nextTick }, slots }) {
     const options = computed(() => fixOptions(props.options))
     const calendarId = uuid().substr(0, 8)
     const calendar = ref<HTMLElement>(null)

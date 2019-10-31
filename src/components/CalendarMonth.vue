@@ -9,12 +9,14 @@ import useCalendarItems, { CalendarItem } from '../use/calendar-items'
 import useCalendarItemStyle from '../use/calendar-item-style'
 import { CalendarContext } from '../context'
 import Dictionary from '../dictionary'
+import RenderCalendarItem from './RenderCalendarItem'
 
 interface Props {
   context: CalendarContext
 }
 
 export default createComponent<Props>({
+  components: { RenderCalendarItem },
   props: {
     context: Object,
   } as const,
@@ -38,10 +40,10 @@ export default createComponent<Props>({
     } = useCalendarItems(computed(() => props.context.calendar))
 
     const {
-      classes: calendarItemClasses,
       addClass,
       removeClass,
       styles: calendarItemStyles,
+      classes: calendarItemClasses,
     } = useCalendarItemStyle(calendarItems, computed(() => props.context))
 
     const isVisible = computed(() => {
@@ -131,9 +133,13 @@ export default createComponent<Props>({
             :class="calendarItemClasses[r * 7 + c]"
             :style="calendarItemStyles[r * 7 + c]"
           >
-            <span v-if="item.isCurrentMonth" class="AirbnbCalendarItem__day">
-              {{ formatDate(item.date, 'd') }}
-            </span>
+            <template v-if="item.isCurrentMonth">
+              <span v-if="!context.options.calendarItemRenderFn" class="AirbnbCalendarItem__day">
+                {{ formatDate(item.date, 'd') }}
+              </span>
+
+              <RenderCalendarItem v-else :item="item" :render-fn="context.options.calendarItemRenderFn"/>
+            </template>
           </div>
         </td>
       </tr>
@@ -165,12 +171,12 @@ export default createComponent<Props>({
   
 .AirbnbCalendarItem
   @apply text-center font-light -ml-px -mt-px bg-white
-  padding-top: 0.4rem
-  padding-bottom: 0.4rem
 
   &.is-bordered
     @apply border
 
 .AirbnbCalendarItem__day
   @apply text-gray-700 text-sm
+  padding-top: 0.4rem
+  padding-bottom: 0.4rem
 </style>
