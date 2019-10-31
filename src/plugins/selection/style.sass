@@ -33,23 +33,26 @@
   &.is-selectable
     @apply cursor-pointer
     @include apply-colors(selectable)
-
-    &.is-within-selection,
-    &.is-hovered
-      @apply z-30
-      @include apply-colors(within-selection)
-
-      &.is-unselectable
-        .AirbnbCalendarItem__day
-          color: var(--dp-sel-color-unselectable-text)
     
-    &.is-within-selection.is-hovered
-      @apply z-50
-      @include apply-colors(selected)
+  
+  &.is-within-selection,
+  &.is-unselectable.is-within-selection,
+  &.is-selectable.is-hovered
+    @apply z-30
+    @include apply-colors(within-selection)
 
-    &.is-selected
-      @apply z-40
-      @include apply-colors(selected)
+  &.is-unselectable.is-hovered
+    .AirbnbCalendarItem__day
+      color: var(--dp-sel-color-unselectable-text)
+
+  &.is-selectable.is-within-selection.is-hovered
+    @apply z-50
+    @include apply-colors(selected)
+  
+  &.is-selectable.is-selected,
+  &.is-unselectable.is-selected
+    @apply z-40
+    @include apply-colors(selected)
   
   &.is-unselectable
     @include apply-colors(unselectable)
@@ -58,6 +61,7 @@
     @apply z-10
     @include apply-colors(highlighted)
   
-  &.is-blocked
+  &.is-blocked,
+  &.is-unselectable.is-blocked
     @apply z-20
     @include apply-colors(blocked)

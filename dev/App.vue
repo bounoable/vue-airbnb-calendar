@@ -83,6 +83,8 @@ export default createComponent({
             }
           ],
 
+          minDays: 8,
+
           // highlight(item, { selectable }) {
           //   return selectable && isSaturday(item.date)
           // },

@@ -1,6 +1,6 @@
 import { Ref, ref } from '@vue/composition-api'
 import { CalendarItem } from '../../use/calendar-items'
-import { isBefore, isAfter, isWithinInterval, areIntervalsOverlapping } from 'date-fns'
+import { isBefore, isAfter, isWithinInterval, areIntervalsOverlapping, differenceInDays, Interval } from 'date-fns'
 import Dictionary from '../../dictionary'
 import Options, { Selection } from './options'
 
@@ -38,6 +38,13 @@ const containers: Dictionary<{
   selection: Ref<Selection>
   hoverItem: Ref<CalendarItem|null>
 }> = {}
+
+const orderedInterval = (date1: Date, date2: Date): Interval => {
+  const start = isBefore(date1, date2) ? date1 : date2
+  const end = date1 === start ? date2 : date1
+
+  return { start, end }
+}
 
 export default function useSelection(id: string) {
   const {
@@ -101,10 +108,24 @@ export default function useSelection(id: string) {
     const beforeMinDate = isBeforeMinDate(item, options.minDate)
     const afterMaxDate = isAfterMaxDate(item, options.maxDate)
 
+    let hasMinDays = true
+    if (selection.value.from && !selection.value.to && options.minDays) {
+      const minDays = options.minDays instanceof Function ? options.minDays({
+        selection: selection.value
+      }) : options.minDays
+      const { start, end } = orderedInterval(selection.value.from.date, item.date)
+      const days = differenceInDays(end, start)
+
+      if (days < minDays) {
+        hasMinDays = false
+      }
+    }
+
     const defaultValue = !(
       (options.selectableRanges && !selectableRanges.length) ||
       blockedRanges.length ||
       wrapsBlockedRanges ||
+      !hasMinDays ||
       beforeMinDate || afterMaxDate
     )
 
@@ -132,9 +153,7 @@ export default function useSelection(id: string) {
       return false
     }
 
-    const from = isBefore(selection.from.date, selection.to.date) ? selection.from : selection.to
-    const to = selection.from === from ? selection.to : selection.from
-    const selectionInterval: Interval = { start: from.date, end: to.date }
+    const selectionInterval = orderedInterval(selection.from.date, selection.to.date)
 
     for (const range of ranges) {
       if (areIntervalsOverlapping(selectionInterval, range)) {
