@@ -68,7 +68,7 @@ export default createComponent<Props>({
 
     const rootContext = computed<RootContext>(() => ({
       options: options.value,
-      id: calendarId.value,
+      id: calendarId,
       el: calendar.value,
       visibleCalendars: visibleCalendars.value,
       calendarItemPlugins: calendarItemPlugins.value,
