@@ -50,30 +50,7 @@ export default interface Options<F extends DateFormat = undefined> {
    */
   selectableRanges?: Interval[]|(() => Interval[])
 
-  /**
-   * Specify date ranges that are blocked.
-   */
-  blockedRanges?: Interval[]|(() => Interval[])
-
-  /**
-   * Allow the selection to overlap with the start and end date of the blocked ranges.
-   */
-  allowBlockedStartEndOverlap?: boolean
-
-  /**
-   * Specify the minimum days the user has to select.
-   */
-  minDays?: number|((state: {
-    selection: Selection
-  }) => number)
-
-  /**
-   * Specify the maximum allowed gap between a blocked range and the selection.
-   * This option is enabled only if minDays is greater than 0.
-   */
-  maxGapBlocked?: number|((state: {
-    selection: Selection
-  }) => number)
+  reservations?: ReservationOptions
 
   /**
    * Custom function to determine if a calendar item can be selected.
@@ -92,11 +69,6 @@ export default interface Options<F extends DateFormat = undefined> {
      * The selectable ranges the calendar item is in.
      */
     selectableRanges: Interval[]
-
-    /**
-     * The blocked ranges the calendar item is in.
-     */
-    blockedRanges: Interval[]
 
     /**
      * Indicates if the calendar item is before the specified minimum date.
@@ -157,4 +129,37 @@ export interface CalendarItemColors {
   background?: string
   border?: string
   text?: string
+}
+
+export interface ReservationOptions {
+  /**
+   * Specify date ranges that are blocked by reservations.
+   */
+  ranges?: Interval[]|(() => Interval[])
+
+  /**
+   * Specify the minimum days the user has to select.
+   */
+  minDays?: number|((state: {
+    selection: Selection
+  }) => number)
+
+  /**
+   * Specify the maximum allowed gap between two reservations.
+   * This option is enabled only if minDays is greater than 0.
+   */
+  maxGap?: number|((state: {
+    selection: Selection
+  }) => number)
+
+  /**
+   * Allow reservations to overlap (check-in same day as check-out).
+   */
+  allowCheckInOutOverlap?: boolean
+
+  /**
+   * Allow gaps between reservations to filled, if otherwise the
+   * gap could not be filled because of the minDays constraint.
+   */
+  allowGapFills?: boolean
 }

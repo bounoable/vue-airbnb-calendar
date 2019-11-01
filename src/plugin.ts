@@ -11,6 +11,8 @@ export default interface Plugin {
       installCalendarItemPlugin(plugin: CalendarItemPlugin): void
     }
   ): any
+
+  destroy?(): any
 }
 
 export type PluginFn = Plugin['install']

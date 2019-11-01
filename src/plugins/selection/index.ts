@@ -2,12 +2,15 @@
 import './style.sass'
 import { PluginFn } from '../../plugin'
 import { format, isSameDay } from 'date-fns'
-import { watch, onMounted } from '@vue/composition-api'
+import { watch, onMounted, Ref, isRef, ref } from '@vue/composition-api'
 import { cssVar } from '../../helpers/styles'
-import useSelection, { findRangesOfItem } from './selection'
+import useSelection from './selection'
 import Options, { CalendarItemColors, DateFormat } from './options'
+import { findRangesOfItem } from './helpers'
 
-export default <F extends DateFormat = undefined>(options: Options<F> = {}): PluginFn => {
+export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>> = {}): PluginFn => {
+  const options = isRef(opt) ? opt : ref<Options<F>>(opt)
+
   return (rootContext, { installRootPlugin, installCalendarItemPlugin }) => {
     const {
       selection,
@@ -19,39 +22,48 @@ export default <F extends DateFormat = undefined>(options: Options<F> = {}): Plu
       isWithinSelection,
       isBeforeMinDate,
       isAfterMaxDate,
-      isBlocked,
+      analysis,
+      hasReservation,
+      stopHandles,
+      destroy,
       clear: clearSelection,
-    } = useSelection(rootContext.id)
+    } = useSelection(rootContext.id, options)
 
-    onMounted(() => watch(() => options.colors, colors => {
-      for (const state in colors) {
-        const stateColors = colors[state as keyof Options<F>['colors']] as CalendarItemColors
+    onMounted(() => {
+      stopHandles.value.push(
+        watch(() => options.value.colors, colors => {
+          for (const state in colors) {
+            const stateColors = colors[state as keyof Options<F>['colors']] as CalendarItemColors
+  
+            for (const key in stateColors) {
+              const color = stateColors[key as keyof CalendarItemColors]!
+              document.documentElement.style.setProperty(cssVar(`sel-color-${state}-${key}`), color)
+            }
+          }
+        })
+      )
+    })
 
-        for (const key in stateColors) {
-          const color = stateColors[key as keyof CalendarItemColors]!
-          document.documentElement.style.setProperty(cssVar(`sel-color-${state}-${key}`), color)
+    stopHandles.value.push(
+      watch(selection, sel => {
+        if ((sel.from || sel.to) && options.value.onSelect) {
+          // @ts-ignore
+          let from: (F extends undefined ? Date : string)|null = sel.from
+            ? (typeof options.value.dateFormat === 'undefined' ? sel.from.date : format(sel.from.date, options.value.dateFormat as string))
+            : null
+          
+          // @ts-ignore
+          let to: (F extends undefined ? Date : string)|null = sel.to
+            ? (typeof options.value.dateFormat === 'undefined' ? sel.to.date : format(sel.to.date, options.value.dateFormat as string))
+            : null
+          
+          options.value.onSelect.apply(options, [{
+            from,
+            to,
+          }])
         }
-      }
-    }))
-
-    watch(selection, sel => {
-      if ((sel.from || sel.to) && options.onSelect) {
-        // @ts-ignore
-        let from: (F extends undefined ? Date : string)|null = sel.from
-          ? (typeof options.dateFormat === 'undefined' ? sel.from.date : format(sel.from.date, options.dateFormat as string))
-          : null
-        
-        // @ts-ignore
-        let to: (F extends undefined ? Date : string)|null = sel.to
-          ? (typeof options.dateFormat === 'undefined' ? sel.to.date : format(sel.to.date, options.dateFormat as string))
-          : null
-        
-        options.onSelect.apply(options, [{
-          from,
-          to,
-        }])
-      }
-    }, { deep: true })
+      }, { deep: true })
+    )
 
     installRootPlugin({
       on: {
@@ -71,12 +83,12 @@ export default <F extends DateFormat = undefined>(options: Options<F> = {}): Plu
           return classes
         }
   
-        const selectable = isSelectable(item, options)
-        const blocked = isBlocked(item, options)
+        const selectable = isSelectable(item, analysis.value, options.value)
+        const blocked = hasReservation(item, analysis.value)
         const hovered = isHovered(item)
         const withinSelection = isWithinSelection(item)
         const selected = isSelected(item)
-        const highlighted = options.highlight ? options.highlight(item, {
+        const highlighted = options.value.highlight ? options.value.highlight(item, {
           hovered,
           selectable,
           selected,
@@ -87,8 +99,8 @@ export default <F extends DateFormat = undefined>(options: Options<F> = {}): Plu
         let blockedStartDay = false
         let blockedEndDay = false
 
-        if (options.allowBlockedStartEndOverlap) {
-          const blockedRanges = findRangesOfItem(item, options.blockedRanges)
+        if (options.value.reservations && options.value.reservations.allowCheckInOutOverlap) {
+          const blockedRanges = findRangesOfItem(item, options.value.reservations ? options.value.reservations.ranges : undefined)
   
           for (const range of blockedRanges) {
             if (isSameDay(range.start, item.date)) {
@@ -143,63 +155,63 @@ export default <F extends DateFormat = undefined>(options: Options<F> = {}): Plu
       styles(item, classes, ctx) {
         let styles: { [key: string]: string|number } = {}
 
-        if (!options.css) {
+        if (!options.value.css) {
           return styles
         }
 
-        if (options.css.base) {
+        if (options.value.css.base) {
           styles = {
             ...styles,
-            ...options.css.base as any,
+            ...options.value.css.base as any,
           }
         }
 
-        if (options.css.selectable && classes.indexOf('is-selectable') > -1) {
+        if (options.value.css.selectable && classes.indexOf('is-selectable') > -1) {
           styles = {
             ...styles,
-            ...options.css.selectable as any,
+            ...options.value.css.selectable as any,
           }
         }
 
-        if (options.css.unselectable && classes.indexOf('is-unselectable') > -1) {
+        if (options.value.css.unselectable && classes.indexOf('is-unselectable') > -1) {
           styles = {
             ...styles,
-            ...options.css.unselectable as any,
+            ...options.value.css.unselectable as any,
           }
         }
 
-        if (options.css.hovered && classes.indexOf('is-hovered') > -1) {
+        if (options.value.css.hovered && classes.indexOf('is-hovered') > -1) {
           styles = {
             ...styles,
-            ...options.css.hovered as any,
+            ...options.value.css.hovered as any,
           }
         }
 
-        if (options.css.withinSelection && classes.indexOf('is-within-selection') > -1) {
+        if (options.value.css.withinSelection && classes.indexOf('is-within-selection') > -1) {
           styles = {
             ...styles,
-            ...options.css.withinSelection as any,
+            ...options.value.css.withinSelection as any,
           }
         }
 
-        if (options.css.selected && classes.indexOf('is-selected') > -1) {
+        if (options.value.css.selected && classes.indexOf('is-selected') > -1) {
           styles = {
             ...styles,
-             ...options.css.selected as any,
+             ...options.value.css.selected as any,
           }
         }
 
-        if (options.css.highlighted && classes.indexOf('is-highlighted') > -1) {
+        if (options.value.css.highlighted && classes.indexOf('is-highlighted') > -1) {
           styles = {
             ...styles,
-            ...options.css.highlighted as any,
+            ...options.value.css.highlighted as any,
           }
         }
 
-        if (options.css.blocked && classes.indexOf('is-blocked') > -1) {
+        if (options.value.css.blocked && classes.indexOf('is-blocked') > -1) {
           styles = {
             ...styles,
-            ...options.css.blocked as any,
+            ...options.value.css.blocked as any,
           }
         }
 
@@ -208,12 +220,12 @@ export default <F extends DateFormat = undefined>(options: Options<F> = {}): Plu
 
       on: {
         click(item) {
-          if (isSelectable(item, options)) {
+          if (isSelectable(item, analysis.value, options.value)) {
             selectItem(item, selection)
           }
         },
         mouseenter(item) {
-          if (!item.isCurrentMonth || isBeforeMinDate(item, options.minDate) || isAfterMaxDate(item, options.maxDate)) {
+          if (!item.isCurrentMonth || isBeforeMinDate(item, options.value.minDate) || isAfterMaxDate(item, options.value.maxDate)) {
             hoverItem.value = null
             return
           }
@@ -227,8 +239,8 @@ export default <F extends DateFormat = undefined>(options: Options<F> = {}): Plu
         },
       },
 
-      calendarItemRenderFn(h, prev, { item, classes }) {
-        if (!options.allowBlockedStartEndOverlap) {
+      calendarItemRenderFn(h, prev, { classes }) {
+        if (!(options.value.reservations && options.value.reservations.allowCheckInOutOverlap)) {
           return prev
         }
 
@@ -277,7 +289,6 @@ export default <F extends DateFormat = undefined>(options: Options<F> = {}): Plu
             ])
           )
         }
-
 
         return prev
       }

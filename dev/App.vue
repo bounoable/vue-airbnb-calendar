@@ -2,6 +2,7 @@
 import { createComponent, ref, computed, onMounted } from '@vue/composition-api'
 import AirbnbCalendar from '../src/components/AirbnbCalendar.vue'
 import Options from '../src/options'
+import SelectionOptions from '../src/plugins/selection/options'
 import SelectionPlugin from '../src/plugins/selection/index'
 import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays } from 'date-fns'
 import de from 'date-fns/locale/de'
@@ -11,7 +12,7 @@ export default createComponent({
 
   setup(props, ctx) {
     const options = computed<Partial<Options>>(() => ({
-      maxMonths: 8,
+      maxMonths: 12,
       // dateFnsLocale: de,
       // shortWeekdaysLength: 2,
       // startMonth: addMonths(new Date(), 3),
@@ -30,7 +31,7 @@ export default createComponent({
       // },
 
       plugins: [
-        SelectionPlugin({
+        SelectionPlugin(computed<SelectionOptions>(() => ({
           // minDate: subDays(new Date(), 7),
           // maxDate: addDays(new Date(), 20),
 
@@ -60,7 +61,7 @@ export default createComponent({
             },
           },
 
-          dateFormat: 'dd-MM-yyyy',
+          // dateFormat: 'dd-MM-yyyy',
           // ranges: [
           //   {
           //     start: new Date(),
@@ -72,25 +73,27 @@ export default createComponent({
           //   return false
           // },
 
-          blockedRanges: [
-            {
-              start: addDays(new Date(), 4),
-              end: addDays(new Date(), 12),
-            },
-            {
-              start: addDays(new Date(), 12),
-              end: addDays(new Date(), 36),
-            },
-            {
-              start: addDays(new Date(), 40),
-              end: addDays(new Date(), 50),
-            }
-          ],
+          reservations: {
+            ranges: [
+              {
+                start: addDays(new Date(), 4),
+                end: addDays(new Date(), 12),
+              },
+              {
+                start: addDays(new Date(), 12),
+                end: addDays(new Date(), 36),
+              },
+              {
+                start: addDays(new Date(), 40),
+                end: addDays(new Date(), 50),
+              }
+            ],
 
-          allowBlockedStartEndOverlap: true,
-
-          minDays: 7,
-          maxGapBlocked: 2,
+            allowCheckInOutOverlap: true,
+            allowGapFills: true,
+            minDays: 7,
+            maxGap: 2,
+          },
 
           // highlight(item, { selectable }) {
           //   return selectable && isSaturday(item.date)
@@ -115,7 +118,7 @@ export default createComponent({
           onSelect(selection) {
             console.log(selection)
           },
-        }),
+        }))),
       ],
     }))
 

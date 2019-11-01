@@ -118,6 +118,14 @@ export default createComponent<Props>({
       watch(renderedCalendars, watchers.renderedCalendars.bind(options))
     }
 
+    onBeforeUnmount(() => {
+      for (const plugin of props.options.plugins || []) {
+        if (!(plugin instanceof Function) && plugin.destroy) {
+          plugin.destroy.apply(plugin)
+        }
+      }
+    })
+
     return {
       calendarContexts,
       calendarId,
