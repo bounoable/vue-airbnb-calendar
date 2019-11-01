@@ -1,4 +1,4 @@
-import { CalendarItem } from '@/use/calendar-items';
+import { CalendarItem } from '../../use/calendar-items'
 
 export type ItemState = 'withinSelection'|'selectable'|'unselectable'|'selected'|'hovered'|'highlighted'|'blocked'
 

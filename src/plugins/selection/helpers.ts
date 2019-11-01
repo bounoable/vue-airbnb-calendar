@@ -1,6 +1,6 @@
 import { startOfDay, areIntervalsOverlapping, isBefore, isWithinInterval } from 'date-fns'
 import { Interval } from './options'
-import { CalendarItem } from '@/use/calendar-items'
+import { CalendarItem } from '../../use/calendar-items'
 
 export const normalizeRanges = (ranges?: Interval[]|(() => Interval[])) => {
   if (!ranges) {
