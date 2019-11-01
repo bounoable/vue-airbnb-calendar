@@ -264,3 +264,5 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
     })
   }
 }
+
+export { Options }
