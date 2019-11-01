@@ -98,7 +98,10 @@ const satisfiesMinDays = <F extends DateFormat>(
   const minDays = options.minDays instanceof Function ? options.minDays({ selection }) : options.minDays
   const blockedRanges = normalizeRanges(options.blockedRanges || [])
   const maxGapBlocked = options.maxGapBlocked
-    ? (options.maxGapBlocked instanceof Function ? options.maxGapBlocked({ selection }) : options.maxGapBlocked)
+    ? (options.maxGapBlocked instanceof Function
+      ? options.maxGapBlocked({ selection })
+      : options.maxGapBlocked
+    )
     : 0
 
   if (!(selection.from || selection.to) || (selection.from && selection.to)) {
@@ -108,6 +111,14 @@ const satisfiesMinDays = <F extends DateFormat>(
         isSameDay(subDays(range.start, shift), item.date) ||
         isSameDay(addDays(range.end, shift), item.date)
       ) {
+        return true
+      }
+
+      if (isBefore(item.date, range.start) && differenceInDays(range.start, item.date) <= (maxGapBlocked + shift)) {
+        return true
+      }
+  
+      if (isAfter(item.date, range.end) && differenceInDays(item.date, range.end) <= (maxGapBlocked + shift)) {
         return true
       }
     }
@@ -124,32 +135,34 @@ const satisfiesMinDays = <F extends DateFormat>(
   }
   
   if (selection.from && !selection.to) {
+    // TODO: Clean up
     const interval = orderedInterval(selection.from.date, item.date)
-
     const days = differenceInDays(interval.end, interval.start)
+
+    if (isBefore(item.date, selection.from.date) && days < minDays) {
+      return false
+    }
 
     for (const range of blockedRanges) {
       const shift = options.allowBlockedStartEndOverlap ? 0 : 1
+
       if (
-        isSameDay(subDays(range.start, shift), item.date) ||
-        isSameDay(addDays(range.end, shift), item.date)
+        isSameDay(subDays(range.start, shift), item.date) &&
+        isAfter(item.date, selection.from.date) &&
+        days < minDays
+      ) {
+        for (const r of blockedRanges) {
+          if (isSameDay(addDays(r.end, shift), selection.from.date)) {
+            return true
+          }
+        }
+      } else if (
+        days >= minDays &&
+        (((isBefore(item.date, range.start) && differenceInDays(range.start, item.date) <= (maxGapBlocked + shift)) ||
+        (isAfter(item.date, range.end) && differenceInDays(item.date, range.end) <= (maxGapBlocked + shift))))
       ) {
         return true
       }
-
-      // if ((days >= minDays) && isSameDay(subDays(range.start, shift), item.date)) {
-      //   if (differenceInDays(range.start, item.date) > maxGapBlocked) {
-      //     return true
-      //   }
-      // }
-
-      // if (maxGapBlocked && (days >= minDays) && (
-      //   isSameDay(subDays(range.start, shift + maxGapBlocked), item.date) ||
-      //   isSameDay(addDays(range.end, shift + maxGapBlocked), item.date)
-      // )) {
-        
-      //   return true
-      // }
     }
 
     if (days < minDays) {

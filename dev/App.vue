@@ -79,7 +79,7 @@ export default createComponent({
             },
             {
               start: addDays(new Date(), 12),
-              end: addDays(new Date(), 20),
+              end: addDays(new Date(), 36),
             },
             {
               start: addDays(new Date(), 40),
@@ -87,10 +87,10 @@ export default createComponent({
             }
           ],
 
-          allowBlockedStartEndOverlap: false,
+          allowBlockedStartEndOverlap: true,
 
           minDays: 7,
-          maxGapBlocked: 4,
+          maxGapBlocked: 2,
 
           // highlight(item, { selectable }) {
           //   return selectable && isSaturday(item.date)
