@@ -86,6 +86,8 @@ export default createComponent<Props>({
       calendarItemPlugins,
       installRootPlugin,
       installCalendarItemPlugin,
+      destroyFns,
+      registerDestroyFn,
     } = usePlugins()
 
     for (const plugin of props.options.plugins || []) {
@@ -93,7 +95,7 @@ export default createComponent<Props>({
       install.apply(plugin, [rootContext.value, {
         installRootPlugin,
         installCalendarItemPlugin,
-      }])
+      }, registerDestroyFn])
     }
 
     onMounted(() => {
@@ -119,10 +121,8 @@ export default createComponent<Props>({
     }
 
     onBeforeUnmount(() => {
-      for (const plugin of props.options.plugins || []) {
-        if (!(plugin instanceof Function) && plugin.destroy) {
-          plugin.destroy.apply(plugin)
-        }
+      for (const fn of destroyFns.value) {
+        fn()
       }
     })
 

@@ -151,7 +151,7 @@ interface CalendarItemColors {
 | minDate | Date | The minimum Date that can be selected. |
 | maxDate | Date | The maximum Date that can be selected. |
 | selectableRanges | Array | Date ranges that are selectable. If not provided all days are selectable. |
-| blockedRanges | Array | Date ranges that are blocked. |
+| reservations | Object | Reservation options for a booking calendar. |
 | selectable | Function | Function to determine if a day is selectable. |
 | highlight | Function | Function to determine if a day is highlighted. |
 | onSelect | Function | Function that is called when the selection changes. |

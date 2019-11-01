@@ -4,7 +4,7 @@ import { isBefore, isAfter, isWithinInterval, isSameDay } from 'date-fns'
 import Dictionary from '../../dictionary'
 import Options, { Selection, Interval, DateFormat, ReservationOptions } from './options'
 import { intervalOverlapsWith, findRangesOfItem, normalizeRanges } from './helpers'
-import { validateCheckInOut, isBlockedForSelection, hasReservation } from './reservations'
+import { validateCheckInOut, hasReservation } from './reservations'
 import { Analysis, analyzeOptions } from './analysis'
 
 const containers: Dictionary<{
@@ -120,29 +120,21 @@ export default function useSelection<F extends DateFormat>(id: string, options: 
       : resOptions.minDays || 0
 
     const reservationRanges = normalizeRanges(resOptions.ranges || [])
-  
     const selectableRanges = findRangesOfItem(item, options.selectableRanges)
-    const blockedRanges = findRangesOfItem(item, options.reservations ? options.reservations.ranges : undefined)
-    const wrapsBlockedRanges = selection.value.from && !selection.value.to && selectionWrapsRanges({
-      from: selection.value.from,
-      to: item,
-    }, options.reservations ? options.reservations.ranges : undefined)
-    const blockedForSelection = isBlockedForSelection(item, blockedRanges, options.reservations)
     const beforeMinDate = isBeforeMinDate(item, options.minDate)
     const afterMaxDate = isAfterMaxDate(item, options.maxDate)
-    const satMinDays = validateCheckInOut(selection.value, item, analysis, reservationRanges, minDays, options)
+    const validCheckInOut = validateCheckInOut(selection.value, item, analysis, reservationRanges, minDays, options)
   
     const defaultValue = !(
       (options.selectableRanges && !selectableRanges.length) ||
-      blockedForSelection ||
-      wrapsBlockedRanges ||
-      !satMinDays ||
+      !validCheckInOut ||
       beforeMinDate || afterMaxDate
     )
   
     if (options.selectable) {
       return options.selectable(item, {
         selectableRanges,
+        reservationRanges,
         beforeMinDate,
         afterMaxDate,
         defaultValue,

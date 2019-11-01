@@ -11,7 +11,7 @@ import { findRangesOfItem } from './helpers'
 export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>> = {}): PluginFn => {
   const options = isRef(opt) ? opt : ref<Options<F>>(opt)
 
-  return (rootContext, { installRootPlugin, installCalendarItemPlugin }) => {
+  return (rootContext, { installRootPlugin, installCalendarItemPlugin }, onDestroy) => {
     const {
       selection,
       hoverItem,
@@ -28,6 +28,8 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
       destroy,
       clear: clearSelection,
     } = useSelection(rootContext.id, options)
+
+    onDestroy(destroy)
 
     onMounted(() => {
       stopHandles.value.push(

@@ -7,7 +7,6 @@ export interface StaticDateInfo {
   reservation: boolean
   checkIn: boolean
   checkOut: boolean
-  highlight: boolean
 }
 
 export type Analysis = Dictionary<StaticDateInfo, number> // number = Date.getTime()
@@ -16,7 +15,6 @@ const makeDateInfo = (): StaticDateInfo => ({
   reservation: false,
   checkIn: false,
   checkOut: false,
-  highlight: false,
 })
 
 export const getInfo = (date: Date, analysis: Analysis) => analysis[date.getTime()] || (analysis[date.getTime()] = makeDateInfo())

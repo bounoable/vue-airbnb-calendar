@@ -92,7 +92,7 @@ export default createComponent({
             allowCheckInOutOverlap: true,
             allowGapFills: true,
             minDays: 7,
-            maxGap: 2,
+            maxGap: 3,
           },
 
           // highlight(item, { selectable }) {
@@ -122,8 +122,11 @@ export default createComponent({
       ],
     }))
 
+    const active = ref(true)
+
     return {
       options,
+      active,
     }
   }
 })
@@ -132,8 +135,12 @@ export default createComponent({
 <template>
 <div id="app">
   <div class="flex justify-center items-start h-screen p-4 lg:pt-64">
-    <div class="border container">
-      <AirbnbCalendar :options="options"/>
+    <div>
+      <button class="mb-10 border rounded bg-gray-100 px-4 py-2 text-gray-700 font-medium focus:outline-none lg:hover:bg-gray-200" @click="active = !active">Toggle</button>
+
+      <div v-if="active" class="border container">
+        <AirbnbCalendar :options="options"/>
+      </div>
     </div>
   </div>
 </div>

@@ -71,6 +71,11 @@ export default interface Options<F extends DateFormat = undefined> {
     selectableRanges: Interval[]
 
     /**
+     * The reservation ranges the calendar item is in.
+     */
+    reservationRanges: Interval[]
+
+    /**
      * Indicates if the calendar item is before the specified minimum date.
      */
     beforeMinDate: boolean

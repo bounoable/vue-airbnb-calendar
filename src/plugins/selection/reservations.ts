@@ -1,7 +1,7 @@
 import Options, { DateFormat, Selection, Interval, ReservationOptions } from './options'
 import { CalendarItem } from '../../use/calendar-items'
 import { intervalOverlapsWith, orderedInterval } from './helpers'
-import { isSameDay, subDays, addDays, isBefore, differenceInDays, isAfter } from 'date-fns'
+import { subDays, addDays, isBefore, differenceInDays, isAfter } from 'date-fns'
 import { Analysis, getInfo } from './analysis'
 
 export const hasReservation = (item: CalendarItem, analysis: Analysis) => {
@@ -33,6 +33,7 @@ export const validateCheckInOut = <F extends DateFormat>(
     )
     : 0
 
+  // validate selection start
   if (!(selection.from || selection.to) || (selection.from && selection.to)) {
     // shift dates depending on whether check-in & check-out days can overlap
     const shift = resOptions.allowCheckInOutOverlap ? 0 : 1
@@ -104,11 +105,17 @@ export const validateCheckInOut = <F extends DateFormat>(
     }
   }
   
+  // validate selection end
   if (selection.from && !selection.to) {
     // shift dates depending on whether check-in & check-out days can overlap
     let shift = resOptions.allowCheckInOutOverlap ? 0 : 1
     const interval = orderedInterval(selection.from.date, item.date)
     const days = differenceInDays(interval.end, interval.start)
+
+    // check if selection would wrap a reservation
+    if (intervalOverlapsWith(interval, reservationRanges)) {
+      return false
+    }
 
     // allow gap fills
     if (days < minDays && resOptions.allowGapFills) {
@@ -166,28 +173,6 @@ export const validateCheckInOut = <F extends DateFormat>(
       }, reservationRanges)) {
         return false
       }
-    }
-  }
-
-  return true
-}
-
-export const isBlockedForSelection = (item: CalendarItem, blockedRanges: Interval[], options?: ReservationOptions) => {
-  if (!options) {
-    return false
-  }
-
-  if (!blockedRanges.length) {
-    return false
-  }
-
-  if (!options.allowCheckInOutOverlap) {
-    return true
-  }
-
-  for (const range of blockedRanges) {
-    if (isSameDay(item.date, range.start) || isSameDay(item.date, range.end)) {
-      return false
     }
   }
 

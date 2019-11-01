@@ -9,10 +9,9 @@ export default interface Plugin {
     helpers: {
       installRootPlugin(plugin: RootPlugin): void
       installCalendarItemPlugin(plugin: CalendarItemPlugin): void
-    }
+    },
+    onDestroy: (destroyFn: () => any) => void
   ): any
-
-  destroy?(): any
 }
 
 export type PluginFn = Plugin['install']
