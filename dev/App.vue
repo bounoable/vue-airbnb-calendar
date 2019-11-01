@@ -44,6 +44,10 @@ export default createComponent({
               background: '#ebf8ff',
               border: '#90cdf4',
             },
+            selectable: {
+              background: '#f0fff4',
+              border: '#9ae6b4',
+            },
             unselectable: {
             },
             selected: {
@@ -80,7 +84,7 @@ export default createComponent({
                 end: addDays(new Date(), 12),
               },
               {
-                start: addDays(new Date(), 12),
+                start: addDays(new Date(), 13),
                 end: addDays(new Date(), 36),
               },
               {

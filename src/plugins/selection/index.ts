@@ -7,6 +7,7 @@ import { cssVar } from '../../helpers/styles'
 import useSelection from './selection'
 import Options, { CalendarItemColors, DateFormat } from './options'
 import { findRangesOfItem } from './helpers'
+import { renderCheckInDay, renderCheckOutDay } from './renderCheckInOutDay'
 
 export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>> = {}): PluginFn => {
   const options = isRef(opt) ? opt : ref<Options<F>>(opt)
@@ -251,45 +252,11 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
         }
 
         if (classes.indexOf('is-blocked-start-day') > -1) {
-          prev.children!.unshift(
-            h('div', { staticClass: 'AirbnbCalendarItem__checkInOut' }, [
-              h('svg', {
-                class: 'AirbnbCalendarItem__checkInOut-svg',
-                attrs: {
-                  viewBox: '0 0 100 100',
-                  preserveAspectRatio: 'none',
-                  'shape-rendering': 'geometricPrecision',
-                },
-              }, [
-                h('path', {
-                  attrs: {
-                    d: 'M-1 101 L 101 101 L 101 -1 L -1 101',
-                  }
-                })
-              ])
-            ])
-          )
+          prev.children!.unshift(renderCheckInDay(h))
         }
 
         if (classes.indexOf('is-blocked-end-day') > -1) {
-          prev.children!.unshift(
-            h('div', { staticClass: 'AirbnbCalendarItem__checkInOut' }, [
-              h('svg', {
-                class: 'AirbnbCalendarItem__checkInOut-svg',
-                attrs: {
-                  viewBox: '0 0 100 100',
-                  preserveAspectRatio: 'none',
-                  'shape-rendering': 'geometricPrecision',
-                },
-              }, [
-                h('path', {
-                  attrs: {
-                    d: 'M-1 -1 L 101 -1 L -1 101 L -1 -1',
-                  }
-                })
-              ])
-            ])
-          )
+          prev.children!.unshift(renderCheckOutDay(h))
         }
 
         return prev

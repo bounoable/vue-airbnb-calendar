@@ -25,19 +25,19 @@
   @include declare-colors(selected, #edf2f7, #cbd5e0, null)
   @include declare-colors(highlighted, #edf2f7, #cbd5e0, null)
   @include declare-colors(blocked, #fff5f5, #feb2b2, #e53e3e)
-  
+
 .AirbnbCalendarItem
   @apply relative
   @include apply-colors(base)
 
   &.is-selectable
-    @apply cursor-pointer
+    @apply cursor-pointer z-10
     @include apply-colors(selectable)
   
   &.is-within-selection,
   &.is-unselectable.is-within-selection,
   &.is-selectable.is-hovered
-    @apply z-30
+    @apply z-40
     @include apply-colors(within-selection)
 
   &.is-unselectable.is-hovered
@@ -45,38 +45,38 @@
       color: var(--dp-sel-color-unselectable-text)
 
   &.is-selectable.is-within-selection.is-hovered
-    @apply z-50
+    @apply z-60
     @include apply-colors(selected)
   
   &.is-selectable.is-selected,
   &.is-unselectable.is-selected
-    @apply z-40
+    @apply z-50
     @include apply-colors(selected)
   
   &.is-unselectable
     @include apply-colors(unselectable)
 
   &.is-highlighted
-    @apply z-10
+    @apply z-20
     @include apply-colors(highlighted)
   
   &.is-blocked,
   &.is-unselectable.is-blocked
     &:not(.is-blocked-start-day):not(.is-blocked-end-day)
-      @apply z-20 pointer-events-none
+      @apply z-30 pointer-events-none
       @include apply-colors(blocked)
     
     &.is-blocked-start-day.is-blocked-end-day
       @apply pointer-events-none
 
 .AirbnbCalendarItem__checkInOut
-  @apply absolute inset-0 z-10
+  @apply absolute inset-0 z-20
 
   + .AirbnbCalendarItem__day
     @apply relative z-20
 
 .AirbnbCalendarItem__checkInOut-svg
-  @apply w-full h-full absolute inset-0 z-10
+  @apply w-full h-full absolute inset-0 z-10 overflow-visible
   fill: var(--dp-sel-color-blocked-background)
   stroke: var(--dp-sel-color-blocked-border)
   stroke-width: 2
