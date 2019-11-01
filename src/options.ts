@@ -1,9 +1,12 @@
-import { Locale } from 'date-fns'
 import Plugin, { PluginFn } from './plugin'
 import { Calendar } from './use/calendar'
 import { Options as LocalizationOptions } from './use/localization'
 
-interface BaseOptions {
+export default interface Options extends OptionalOptions, Partial<RequiredOptions>, Partial<LocalizationOptions> {}
+
+export interface InternalOptions extends OptionalOptions, RequiredOptions, LocalizationOptions {}
+
+interface OptionalOptions {
   /**
    * The date that's displayed as the default / start month.
    */
@@ -44,14 +47,9 @@ interface BaseOptions {
   plugins?: (Plugin|PluginFn)[]
 }
 
-export default interface Options extends BaseOptions, Partial<LocalizationOptions> {
+interface RequiredOptions {
   /**
    * The maximum number of visible months.
    */
-  maxMonths?: number
-}
-
-export interface InternalOptions extends BaseOptions, LocalizationOptions {
-  dateFnsLocale: Locale
   maxMonths: number
 }
