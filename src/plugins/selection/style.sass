@@ -69,13 +69,13 @@
     &.is-blocked-start-day.is-blocked-end-day
       @apply pointer-events-none
 
-.AirbnbCalendarItem__intervalStartEnd
-  @apply absolute inset-0 overflow-hidden z-10
+.AirbnbCalendarItem__checkInOut
+  @apply absolute inset-0 z-10
 
   + .AirbnbCalendarItem__day
     @apply relative z-20
 
-.AirbnbCalendarItem__intervalStartEnd-svg
+.AirbnbCalendarItem__checkInOut-svg
   @apply w-full h-full absolute inset-0 z-10
   fill: var(--dp-sel-color-blocked-background)
   stroke: var(--dp-sel-color-blocked-border)

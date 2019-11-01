@@ -252,9 +252,9 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
 
         if (classes.indexOf('is-blocked-start-day') > -1) {
           prev.children!.unshift(
-            h('div', { staticClass: 'AirbnbCalendarItem__intervalStartEnd' }, [
+            h('div', { staticClass: 'AirbnbCalendarItem__checkInOut' }, [
               h('svg', {
-                class: 'AirbnbCalendarItem__intervalStartEnd-svg',
+                class: 'AirbnbCalendarItem__checkInOut-svg',
                 attrs: {
                   viewBox: '0 0 100 100',
                   preserveAspectRatio: 'none',
@@ -273,9 +273,9 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
 
         if (classes.indexOf('is-blocked-end-day') > -1) {
           prev.children!.unshift(
-            h('div', { staticClass: 'AirbnbCalendarItem__intervalStartEnd' }, [
+            h('div', { staticClass: 'AirbnbCalendarItem__checkInOut' }, [
               h('svg', {
-                class: 'AirbnbCalendarItem__intervalStartEnd-svg',
+                class: 'AirbnbCalendarItem__checkInOut-svg',
                 attrs: {
                   viewBox: '0 0 100 100',
                   preserveAspectRatio: 'none',
