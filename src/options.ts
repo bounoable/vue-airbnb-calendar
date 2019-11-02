@@ -28,17 +28,13 @@ interface OptionalOptions {
   watch?: {
     /**
      * Listen for changes to the currently visible calendars.
-     * 
-     * @param calendars The visible calendars.
      */
-    visibleCalendars?(calendars: Calendar[]): any
+    visibleCalendars?(calendars: Calendar[], oldCalendars: Calendar[]): any
 
     /**
      * Listen for changes to all rendered calendars.
-     * 
-     * @param calendars The rendered calendars.
      */
-    renderedCalendars?(calendars: Calendar[]): any
+    renderedCalendars?(calendars: Calendar[], oldCalendars: Calendar[]): any
   }
 
   /**

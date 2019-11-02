@@ -113,11 +113,11 @@ export default createComponent<Props>({
     const watchers = props.options.watch || {}
 
     if (watchers.visibleCalendars) {
-      watch(visibleCalendars, watchers.visibleCalendars.bind(options))
+      onBeforeUnmount(watch(visibleCalendars, watchers.visibleCalendars.bind(options)))
     }
 
     if (watchers.renderedCalendars) {
-      watch(renderedCalendars, watchers.renderedCalendars.bind(options))
+      onBeforeUnmount(watch(renderedCalendars, watchers.renderedCalendars.bind(options)))
     }
 
     onBeforeUnmount(() => {
