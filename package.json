@@ -3,10 +3,7 @@
   "version": "0.5.3",
   "private": false,
   "license": "MIT",
-  "author": {
-    "name": "Saman Hosseini",
-    "email": "saman@modernice.ltd"
-  },
+  "author": "Saman Hosseini <saman@modernice.ltd>",
   "homepage": "https://github.com/bounoable/vue-airbnb-calendar",
   "keywords": [
     "vue",
@@ -21,6 +18,13 @@
   "module": "dist/index.esm.js",
   "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
   "jsdelivr": "dist/vue-airbnb-calendar.min.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bounoable/vue-airbnb-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
+  },
   "types": "types/index.d.ts",
   "scripts": {
     "dev": "vue-cli-service serve dev/main.ts",
@@ -44,6 +48,7 @@
     "@vue/cli-service": "^4.0.0",
     "bili": "^4.8.1",
     "cssnano": "^4.1.10",
+    "lerna": "^3.18.3",
     "node-sass": "^4.12.0",
     "rimraf": "^3.0.0",
     "rollup-plugin-commonjs": "^10.1.0",

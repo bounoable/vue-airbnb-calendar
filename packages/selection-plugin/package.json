@@ -1,0 +1,31 @@
+{
+  "name": "vue-airbnb-calendar-plugin-selection",
+  "version": "0.6.0",
+  "description": "Selection / Reservation / Booking plugin for vue-airbnb-calendar",
+  "keywords": [
+    "airbnb",
+    "calendar",
+    "datepicker",
+    "selection",
+    "booking",
+    "reservation",
+    "vue"
+  ],
+  "author": "Saman Hosseini <bounoable@gmail.com>",
+  "homepage": "https://github.com/bounoable/vue-airbnb-calendar",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
+  "jsdelivr": "dist/vue-airbnb-calendar.min.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bounoable/vue-airbnb-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
+  },
+  "dependencies": {
+    "vue-airbnb-calendar": "^0.5.3"
+  }
+}
