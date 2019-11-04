@@ -14,8 +14,7 @@
     "range",
     "selection"
   ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
   "jsdelivr": "dist/vue-airbnb-calendar.min.umd.js",
   "repository": {
@@ -27,12 +26,9 @@
   },
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && yarn build:module && yarn build:components && yarn build:bundle && yarn dist:cleanup",
-    "build:module": "tsc --declaration --outDir ./dist",
-    "build:components": "bili -c components.bili.config.ts",
-    "build:bundle": "bili",
+    "build": "rimraf ./dist && bili && yarn dist:cleanup",
     "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
-    "dist:cleanup": "mv ./dist/index.cjs.css ./dist/style.css && rimraf ./dist/*.*.css && rimraf ./dist/components/*.css"
+    "dist:cleanup": "mv ./dist/index.css ./dist/style.css && rimraf ./dist/*.*.css && rimraf ./dist/components/*.css"
   },
   "dependencies": {
     "@vue/composition-api": "^0.3.2",
