@@ -17,8 +17,8 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
-  "jsdelivr": "dist/vue-airbnb-calendar.min.umd.js",
+  "unpkg": "dist/vue-airbnb-calendar-plugin-selection.umd.min.js",
+  "jsdelivr": "dist/vue-airbnb-calendar-plugin-selection.min.umd.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bounoable/vue-airbnb-calendar.git"
@@ -27,8 +27,10 @@
     "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
   },
   "scripts": {
-    "build": "rimraf ./dist && bili && yarn dist:cleanup",
-    "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/vue-airbnb-calendar-plugin-selection.css"
+    "build": "rimraf ./dist && yarn build:module && yarn build:bundles && yarn build:css",
+    "build:module": "tsc && mv ./dist/index.js ./dist/index.esm.js",
+    "build:bundles": "bili",
+    "build:css": "bili -c css.bili.config.ts"
   },
   "dependencies": {
     "vue-airbnb-calendar": "^0.5.3"

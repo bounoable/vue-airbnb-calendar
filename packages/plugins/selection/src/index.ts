@@ -1,5 +1,3 @@
-// @ts-ignore
-import './style.sass'
 import { PluginFn } from 'vue-airbnb-calendar/src/plugin'
 import { format, isSameDay } from 'date-fns'
 import { watch, onMounted, Ref, isRef, ref } from '@vue/composition-api'

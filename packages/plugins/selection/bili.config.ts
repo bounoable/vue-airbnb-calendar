@@ -1,12 +1,10 @@
 import { Config } from 'bili'
 
 const config: Config = {
-  input: [
-    'src/index.ts'
-  ],
+  input: 'src/index.ts',
 
   output: {
-    format: ['esm', 'umd', 'umd-min', 'cjs'],
+    format: ['umd', 'umd-min', 'cjs'],
     moduleName: 'vueAirbnbCalendarSelection',
     target: 'browser',
     fileName: (ctx, def) => {
@@ -26,9 +24,7 @@ const config: Config = {
 
   plugins: {
     commonjs: true,
-    typescript2: {
-      useTsconfigDeclarationDir: true,
-    },
+    typescript2: true,
   },
 
   bundleNodeModules: true,
