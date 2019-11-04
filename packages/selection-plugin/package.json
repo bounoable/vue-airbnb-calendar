@@ -9,7 +9,8 @@
     "selection",
     "booking",
     "reservation",
-    "vue"
+    "vue",
+    "vue-airbnb-calendar"
   ],
   "author": "Saman Hosseini <bounoable@gmail.com>",
   "homepage": "https://github.com/bounoable/vue-airbnb-calendar",
@@ -25,5 +26,15 @@
   "bugs": {
     "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
   },
-  "dependencies": {}
+  "scripts": {
+    "build": "rimraf ./dist && bili --root-dir packages/selection-plugin"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bili": "^4.8.1",
+    "cssnano": "^4.1.10",
+    "rimraf": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.24.3",
+    "tailwindcss": "^1.1.3"
+  }
 }
