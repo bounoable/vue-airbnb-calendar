@@ -1,9 +1,6 @@
 {
-  "name": "vue-airbnb-calendar",
-  "version": "0.5.3",
-  "private": false,
-  "license": "MIT",
-  "author": "Saman Hosseini <saman@modernice.ltd>",
+  "name": "root",
+  "private": true,
   "homepage": "https://github.com/bounoable/vue-airbnb-calendar",
   "keywords": [
     "vue",
@@ -14,10 +11,6 @@
     "range",
     "selection"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
-  "jsdelivr": "dist/vue-airbnb-calendar.min.umd.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bounoable/vue-airbnb-calendar.git"
@@ -25,39 +18,7 @@
   "bugs": {
     "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
   },
-  "types": "types/index.d.ts",
-  "scripts": {
-    "dev": "vue-cli-service serve dev/main.ts",
-    "build": "rimraf ./dist && bili && yarn typings && yarn dist:cleanup",
-    "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
-    "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/vue-airbnb-calendar.css"
-  },
-  "dependencies": {
-    "@vue/composition-api": "^0.3.2",
-    "core-js": "^3.3.2",
-    "date-fns": "^2.4.1",
-    "lodash": "^4.17.15",
-    "resize-observer-polyfill": "^1.5.1",
-    "uuid": "^3.3.3",
-    "vue": "^2.6.10"
-  },
   "devDependencies": {
-    "@types/lodash": "^4.14.144",
-    "@vue/cli-plugin-babel": "^4.0.0",
-    "@vue/cli-plugin-typescript": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
-    "bili": "^4.8.1",
-    "cssnano": "^4.1.10",
-    "lerna": "^3.18.3",
-    "node-sass": "^4.12.0",
-    "rimraf": "^3.0.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-typescript2": "^0.24.3",
-    "rollup-plugin-vue": "^5.0.1",
-    "sass-loader": "^8.0.0",
-    "tailwindcss": "^1.1.2",
-    "typescript": "^3.4.3",
-    "vue-template-compiler": "^2.6.10",
-    "vuepress": "^1.2.0"
+    "lerna": "^3.18.3"
   }
 }
