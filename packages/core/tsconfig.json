@@ -10,6 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "outDir": "./dist",
+    "declaration": true,
     "types": [
       "webpack-env"
     ],

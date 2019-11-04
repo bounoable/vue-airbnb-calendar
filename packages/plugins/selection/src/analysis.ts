@@ -1,4 +1,4 @@
-import Dictionary from 'vue-airbnb-calendar/src/dictionary'
+import Dictionary from 'vue-airbnb-calendar/dist/dictionary'
 import Options, { DateFormat } from './options'
 import { normalizeRanges } from './helpers'
 import { eachDayOfInterval } from 'date-fns'

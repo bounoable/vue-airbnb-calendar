@@ -6,7 +6,7 @@ const config: Config = {
   ],
 
   output: {
-    format: ['esm', 'umd', 'umd-min', 'cjs'],
+    format: ['umd', 'umd-min', 'cjs'],
     moduleName: 'vueAirbnbCalendar',
     target: 'browser',
     fileName: (ctx, def) => {

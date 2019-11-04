@@ -1,4 +1,4 @@
-import { CalendarItem } from 'vue-airbnb-calendar/src/use/calendar-items'
+import { CalendarItem } from 'vue-airbnb-calendar/dist/use/calendar-items'
 
 export type ItemState = 'withinSelection'|'selectable'|'unselectable'|'selected'|'hovered'|'highlighted'|'blocked'
 

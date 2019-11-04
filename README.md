@@ -22,13 +22,7 @@ Vue.use(CompositionApi)
 ### Package Manager
 
 ```sh
-yarn add vue-airbnb-calendar
-```
-
-or
-
-```sh
-npm install vue-airbnb-calendar --save
+yarn add vue-airbnb-calendar // npm install vue-airbnb-calendar --save
 ```
 
 ### CDN
@@ -95,15 +89,20 @@ The Selection Plugin provides a range datepicker with customizable color schemes
 
 ### Installation
 
+```sh
+yarn add vue-airbnb-calendar-plugin-selection // npm install vue-airbnb-calendar-plugin-selection --save
+```
+
 ```html
 <script>
-import { Options, plugins } from 'vue-airbnb-calendar'
+import { Options } from 'vue-airbnb-calendar'
+import SelectionPlugin from 'vue-airbnb-calendar-plugin-selection'
 
 export default {
   data() {
     const options: Options = {
       plugins: [
-        plugins.SelectionPlugin({
+        SelectionPlugin({
           // Plugin options ...
         })
       ]

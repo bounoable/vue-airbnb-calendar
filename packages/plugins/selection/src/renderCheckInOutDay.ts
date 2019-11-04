@@ -1,6 +1,7 @@
 import { CreateElement } from 'vue'
+import { VNode } from 'vue'
 
-export const renderDay = (h: CreateElement, path: string) => h('div', {
+export const renderDay = (h: CreateElement, path: string): VNode => h('div', {
   staticClass: 'AirbnbCalendarItem__checkInOut',
 }, [
   h('svg', {
