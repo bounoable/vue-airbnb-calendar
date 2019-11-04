@@ -28,7 +28,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "build": "rimraf ./dist && yarn build:module && bili && yarn dist:cleanup",
-    "build:module": "tsc && mv ./dist/index.js ./dist/index.esm.js",
+    "build:module": "tsc && mv ./dist/index.js ./dist/index.esm.js && mv ./dist/index.js.map ./dist/index.esm.js.map",
     "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/style.css"
   },
   "dependencies": {
