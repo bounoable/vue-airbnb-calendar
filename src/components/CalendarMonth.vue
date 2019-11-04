@@ -125,28 +125,24 @@ export default createComponent<Props>({
     {{ formatDate(firstOfMonth, 'MMMM yyyy', { locale: context.options.dateFnsLocale }) }}
   </p>
 
-  <table class="AirbnbCalendarMonth__table" @mouseleave="hoverItem = null">
-    <thead>
-      <tr>
-        <th v-for="weekday of weekdaysShort" :key="weekday" v-text="weekday"></th>
-      </tr>
-    </thead>
+  <div class="AirbnbCalendarMonth__calendar" @mouseleave="hoverItem = null">
+    <div class="table-row">
+      <div class="AirbnbCalendarMonth__cell is-heading" v-for="weekday of weekdaysShort" :key="weekday" v-text="weekday"></div>
+    </div>
 
-    <tbody>
-      <tr v-for="(row, r) of calendarRows" :key="r">
-        <td v-for="(item, c) of row.items" :key="c">
-          <RenderCalendarItem
-            ref="calendarItemRefs"
-            :data-num="r * 7 + c" v-if="item.isCurrentMonth"
-            :item="item"
-            :classes="calendarItemClasses[r * 7 + c]"
-            :styles="calendarItemStyles[r * 7 + c]"
-            :render-fns="calendarItemRenderFns"
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div v-for="(row, r) of calendarRows" :key="r" class="table-row">
+      <div v-for="(item, c) of row.items" :key="r * 7 + c" class="AirbnbCalendarMonth__cell">
+        <RenderCalendarItem
+          ref="calendarItemRefs"
+          :data-num="r * 7 + c" v-if="item.isCurrentMonth"
+          :item="item"
+          :classes="calendarItemClasses[r * 7 + c]"
+          :styles="calendarItemStyles[r * 7 + c]"
+          :render-fns="calendarItemRenderFns"
+        />
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -162,20 +158,21 @@ export default createComponent<Props>({
   @apply text-xl font-semibold text-center tracking-tight text-gray-700 py-1 mb-2 select-none opacity-0
   transition: opacity 0.35s
 
-.AirbnbCalendarMonth__table
-  @apply w-full table-fixed border-collapse border-none
+.AirbnbCalendarMonth__calendar
+  @apply w-full table table-fixed
 
-  th
-    @apply border-none font-normal text-sm py-2 text-gray-600
-  
-  td
-    @apply p-0
+.AirbnbCalendarMonth__cell
+  @apply p-0 table-cell
+  width: calc(100% / 7)
+
+  &.is-heading
+    @apply border-none font-normal text-sm py-2 text-gray-600 text-center
   
 .AirbnbCalendarItem
-  @apply text-center font-light -ml-px -mt-px bg-white
+  @apply text-center font-light -ml-px -mt-px bg-white border border-transparent
 
-  &.is-bordered
-    @apply border
+  &.is-current-month
+    @apply border-gray-300
 
 .AirbnbCalendarItem__day
   @apply text-gray-700 text-sm block

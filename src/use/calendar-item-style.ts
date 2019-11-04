@@ -8,10 +8,10 @@ export default function useCalendarItemStyle(items: Ref<CalendarItem[]>, context
 
   const classes = computed(() => {
     return items.value.map((item, i) => {
-      let classes: string[] = []
+      let classes: string[] = ['AirbnbCalendarItem']
 
       if (item.isCurrentMonth) {
-        classes.push('AirbnbCalendarItem', 'is-bordered')
+        classes.push('is-current-month')
       }
 
       for (const plugin of context.value.calendarItemPlugins) {

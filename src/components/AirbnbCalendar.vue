@@ -174,7 +174,8 @@ export default createComponent<Props>({
 
 <style lang="sass">
 .AirbnbCalendar
-  @apply relative opacity-0 outline-none
+  @apply relative opacity-0
+  @apply outline-none #{!important}
 
   &.is-ready
     @apply opacity-100
