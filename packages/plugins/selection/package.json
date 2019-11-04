@@ -1,6 +1,6 @@
 {
   "name": "vue-airbnb-calendar-plugin-selection",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Selection / Reservation / Booking plugin for vue-airbnb-calendar",
   "keywords": [
     "airbnb",
@@ -35,6 +35,6 @@
   "dependencies": {
     "@vue/composition-api": "^0.3.2",
     "vue": "^2.6.10",
-    "vue-airbnb-calendar": "^0.6.1"
+    "vue-airbnb-calendar": "^0.6.2"
   }
 }
