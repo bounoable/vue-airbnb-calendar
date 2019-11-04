@@ -1,5 +1,6 @@
 <script lang="ts">
 import { createComponent, ref, computed, onMounted, watch, onBeforeUnmount } from '@vue/composition-api'
+// @ts-ignore
 import PickerMonth from './CalendarMonth.vue'
 import Dictionary from '../dictionary'
 import useCalendar, { Calendar } from '../use/calendar'

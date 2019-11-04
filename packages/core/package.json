@@ -14,8 +14,8 @@
     "range",
     "selection"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
   "unpkg": "dist/vue-airbnb-calendar.umd.min.js",
   "jsdelivr": "dist/vue-airbnb-calendar.min.umd.js",
   "repository": {
@@ -27,9 +27,12 @@
   },
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && bili && yarn typings && yarn dist:cleanup",
-    "typings": "tsc --declaration --emitDeclarationOnly --outDir ./types",
-    "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/style.css"
+    "build": "rimraf ./dist && yarn build:module && yarn build:components && yarn build:bundle && yarn dist:cleanup",
+    "build:module": "tsc --declaration --outDir ./dist",
+    "build:components": "bili -c components.bili.config.ts",
+    "build:bundle": "bili",
+    "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
+    "dist:cleanup": "mv ./dist/index.cjs.css ./dist/style.css && rimraf ./dist/*.*.css && rimraf ./dist/components/*.css"
   },
   "dependencies": {
     "@vue/composition-api": "^0.3.2",
@@ -39,5 +42,8 @@
     "resize-observer-polyfill": "^1.5.1",
     "uuid": "^3.3.3",
     "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.5"
   }
 }

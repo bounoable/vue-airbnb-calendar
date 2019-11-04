@@ -6,10 +6,15 @@ const config: Config = {
   ],
 
   output: {
-    format: ['esm', 'umd', 'umd-min', 'cjs'],
+    format: ['umd', 'umd-min', 'cjs'],
     moduleName: 'vueAirbnbCalendar',
     target: 'browser',
+    extractCSS: true,
     fileName: (ctx, def) => {
+      if (ctx.format === 'cjs') {
+        return 'index.cjs.js'
+      }
+      
       if (ctx.format.indexOf('umd') > -1) {
         return 'vue-airbnb-calendar[min].[format].js'
       }
@@ -27,6 +32,7 @@ const config: Config = {
   plugins: {
     commonjs: true,
     vue: true,
+    typescript2: true,
   },
 
   bundleNodeModules: true,

@@ -8,6 +8,10 @@ const config: Config = {
     moduleName: 'vueAirbnbCalendarSelection',
     target: 'browser',
     fileName: (ctx, def) => {
+      if (ctx.format === 'cjs') {
+        return 'index.cjs.js'
+      }
+      
       if (ctx.format.indexOf('umd') > -1) {
         return 'vue-airbnb-calendar-plugin-selection[min].[format].js'
       }

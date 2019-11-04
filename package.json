@@ -23,7 +23,6 @@
     "packages/plugins/*"
   ],
   "scripts": {
-    "dev": "vue-cli-service serve dev/main.ts",
     "build": "lerna run build"
   },
   "devDependencies": {
