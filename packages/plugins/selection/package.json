@@ -35,6 +35,6 @@
   "dependencies": {
     "@vue/composition-api": "^0.3.2",
     "vue": "^2.6.10",
-    "vue-airbnb-calendar": "file:../../core"
+    "vue-airbnb-calendar": "0.6.0"
   }
 }

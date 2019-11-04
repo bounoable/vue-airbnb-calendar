@@ -10990,7 +10990,7 @@ void-elements@^2.0.1:
   dependencies:
     "@vue/composition-api" "^0.3.2"
     vue "^2.6.10"
-    vue-airbnb-calendar "file:../../../Library/Caches/Yarn/v6/npm-vue-airbnb-calendar-plugin-selection-0.6.0-6e0c0abe-974a-40b8-b7c6-e18647a78fbb-1572896825351/core"
+    vue-airbnb-calendar "0.6.0"
 
 "vue-airbnb-calendar@file:packages/core":
   version "0.6.0"

@@ -31,7 +31,7 @@
     "build": "rimraf ./dist && yarn build:module && bili && yarn dist:cleanup",
     "build:module": "tsc && mv ./dist/index.js ./dist/index.esm.js",
     "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
-    "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/vue-airbnb-calendar.css"
+    "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/style.css"
   },
   "dependencies": {
     "@vue/composition-api": "^0.3.2",

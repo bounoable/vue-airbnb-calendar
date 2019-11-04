@@ -39,6 +39,7 @@ yarn add vue-airbnb-calendar // npm install vue-airbnb-calendar --save
 
 ```ts
 import { AirbnbCalendar, Options } from 'vue-airbnb-calendar'
+import 'vue-airbnb-calendar/dist/style.css'
 
 export default {
   components: { AirbnbCalendar },
@@ -97,6 +98,7 @@ yarn add vue-airbnb-calendar-plugin-selection // npm install vue-airbnb-calendar
 <script>
 import { Options } from 'vue-airbnb-calendar'
 import SelectionPlugin from 'vue-airbnb-calendar-plugin-selection'
+import 'vue-airbnb-calendar-plugin-selection/dist/style.css'
 
 export default {
   data() {
