@@ -10,8 +10,9 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "outDir": "./dist",
-    "declaration": true,
+    "types": [
+      "webpack-env"
+    ],
     "lib": [
       "esnext",
       "dom",
@@ -20,13 +21,11 @@
     ],
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
+    "pakages/**/*.ts",
+    "pakages/**/*.tsx",
+    "pakages/**/*.vue",
     "dev/**/*.ts",
-    "dev/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx",
+    "dev/**/*.vue"
   ],
   "exclude": [
     "node_modules"

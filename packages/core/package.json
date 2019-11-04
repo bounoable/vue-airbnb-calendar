@@ -27,10 +27,8 @@
   },
   "types": "types/index.d.ts",
   "scripts": {
-    "dev": "vue-cli-service serve dev/main.ts",
     "build": "rimraf ./dist && yarn build:module && bili && yarn dist:cleanup",
     "build:module": "tsc && mv ./dist/index.js ./dist/index.esm.js",
-    "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
     "dist:cleanup": "rimraf ./dist/*.*.css && mv ./dist/index.css ./dist/style.css"
   },
   "dependencies": {

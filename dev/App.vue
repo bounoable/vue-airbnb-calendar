@@ -1,9 +1,9 @@
 <script lang="ts">
 import { createComponent, ref, computed, onMounted } from '@vue/composition-api'
-import AirbnbCalendar from '../src/components/AirbnbCalendar.vue'
-import Options from '../src/options'
-import SelectionPlugin from '../packages/selection-plugin/src'
-import SelectionOptions from '../packages/selection-plugin/src/options'
+import AirbnbCalendar from '../packages/core/src/components/AirbnbCalendar.vue'
+import Options from '../packages/core/src/options'
+import SelectionPlugin from '../packages/plugins/selection/src'
+import SelectionOptions from '../packages/plugins/selection/src/options'
 import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays } from 'date-fns'
 import de from 'date-fns/locale/de'
 
