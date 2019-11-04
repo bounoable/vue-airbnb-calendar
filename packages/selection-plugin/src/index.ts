@@ -1,9 +1,9 @@
 // @ts-ignore
 import './style.sass'
-import { PluginFn } from '../../plugin'
+import { PluginFn } from '../../../src/plugin'
 import { format, isSameDay } from 'date-fns'
 import { watch, onMounted, Ref, isRef, ref } from '@vue/composition-api'
-import { cssVar } from '../../helpers/styles'
+import { cssVar } from '../../../src/helpers/styles'
 import useSelection from './selection'
 import Options, { CalendarItemColors, DateFormat } from './options'
 import { findRangesOfItem } from './helpers'

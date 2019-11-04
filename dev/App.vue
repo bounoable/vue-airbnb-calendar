@@ -2,8 +2,8 @@
 import { createComponent, ref, computed, onMounted } from '@vue/composition-api'
 import AirbnbCalendar from '../src/components/AirbnbCalendar.vue'
 import Options from '../src/options'
-import SelectionOptions from '../src/plugins/selection/options'
-import SelectionPlugin from '../src/plugins/selection/index'
+import SelectionPlugin from '../packages/selection-plugin/src'
+import SelectionOptions from '../packages/selection-plugin/src/options'
 import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays } from 'date-fns'
 import de from 'date-fns/locale/de'
 

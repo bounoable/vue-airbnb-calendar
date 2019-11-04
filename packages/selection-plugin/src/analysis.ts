@@ -1,4 +1,4 @@
-import Dictionary from '../../dictionary'
+import Dictionary from '../../../src/dictionary'
 import Options, { DateFormat } from './options'
 import { normalizeRanges } from './helpers'
 import { eachDayOfInterval } from 'date-fns'

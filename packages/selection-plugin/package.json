@@ -25,7 +25,5 @@
   "bugs": {
     "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
   },
-  "dependencies": {
-    "vue-airbnb-calendar": "^0.5.3"
-  }
+  "dependencies": {}
 }

@@ -1,4 +1,4 @@
-import { CreateElement } from 'vue';
+import { CreateElement } from 'vue'
 
 export const renderDay = (h: CreateElement, path: string) => h('div', {
   staticClass: 'AirbnbCalendarItem__checkInOut',
