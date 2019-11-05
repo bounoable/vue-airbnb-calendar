@@ -1,6 +1,6 @@
 {
   "name": "vue-airbnb-calendar-plugin-selection",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Selection / Reservation / Booking plugin for vue-airbnb-calendar",
   "keywords": [
     "airbnb",
@@ -35,8 +35,8 @@
     "vue-airbnb-calendar": "file:../../core"
   },
   "devDependencies": {
-    "@types/node": "^12.12.5",
     "@types/lodash": "^4.14.144",
+    "@types/node": "^12.12.5",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/cli-service": "^4.0.0",

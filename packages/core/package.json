@@ -1,6 +1,6 @@
 {
   "name": "vue-airbnb-calendar",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": false,
   "license": "MIT",
   "author": "Saman Hosseini <saman@modernice.ltd>",
@@ -40,8 +40,8 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@types/node": "^12.12.5",
     "@types/lodash": "^4.14.144",
+    "@types/node": "^12.12.5",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
