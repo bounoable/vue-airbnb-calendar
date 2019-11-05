@@ -27,56 +27,57 @@
   @include declare-colors(blocked, #fff5f5, #feb2b2, #e53e3e)
 
 .AirbnbCalendarItem
-  @apply relative
-  @include apply-colors(base)
+  &.is-current-month
+    @apply relative
+    @include apply-colors(base)
 
-  &.is-selectable
-    @apply cursor-pointer z-10
-    @include apply-colors(selectable)
-  
-  &.is-within-selection,
-  &.is-unselectable.is-within-selection,
-  &.is-selectable.is-hovered
-    @apply z-40
-    @include apply-colors(within-selection)
-
-  &.is-unselectable.is-hovered
-    .AirbnbCalendarItem__day
-      color: var(--dp-sel-color-unselectable-text)
-
-  &.is-selectable.is-within-selection.is-hovered
-    @apply z-60
-    @include apply-colors(selected)
-  
-  &.is-selectable.is-selected,
-  &.is-unselectable.is-selected
-    @apply z-50
-    @include apply-colors(selected)
-  
-  &.is-unselectable
-    @include apply-colors(unselectable)
-
-  &.is-highlighted
-    @apply z-20
-    @include apply-colors(highlighted)
-  
-  &.is-blocked,
-  &.is-unselectable.is-blocked
-    &:not(.is-blocked-start-day):not(.is-blocked-end-day)
-      @apply z-30 pointer-events-none
-      @include apply-colors(blocked)
+    &.is-selectable
+      @apply cursor-pointer z-10
+      @include apply-colors(selectable)
     
-    &.is-blocked-start-day.is-blocked-end-day
-      @apply pointer-events-none
+    &.is-within-selection,
+    &.is-unselectable.is-within-selection,
+    &.is-selectable.is-hovered
+      @apply z-40
+      @include apply-colors(within-selection)
 
-.AirbnbCalendarItem__checkInOut
-  @apply absolute inset-0 z-20
+    &.is-unselectable.is-hovered
+      .AirbnbCalendarItem__day
+        color: var(--dp-sel-color-unselectable-text)
 
-  + .AirbnbCalendarItem__day
-    @apply relative z-20
+    &.is-selectable.is-within-selection.is-hovered
+      @apply z-60
+      @include apply-colors(selected)
+    
+    &.is-selectable.is-selected,
+    &.is-unselectable.is-selected
+      @apply z-50
+      @include apply-colors(selected)
+    
+    &.is-unselectable
+      @include apply-colors(unselectable)
 
-.AirbnbCalendarItem__checkInOut-svg
-  @apply w-full h-full absolute inset-0 z-10 overflow-visible
-  fill: var(--dp-sel-color-blocked-background)
-  stroke: var(--dp-sel-color-blocked-border)
-  stroke-width: 2
+    &.is-highlighted
+      @apply z-20
+      @include apply-colors(highlighted)
+    
+    &.is-blocked,
+    &.is-unselectable.is-blocked
+      &:not(.is-blocked-start-day):not(.is-blocked-end-day)
+        @apply z-30 pointer-events-none
+        @include apply-colors(blocked)
+      
+      &.is-blocked-start-day.is-blocked-end-day
+        @apply pointer-events-none
+
+  .AirbnbCalendarItem__checkInOut
+    @apply absolute inset-0 z-20
+
+    + .AirbnbCalendarItem__day
+      @apply relative z-20
+
+  .AirbnbCalendarItem__checkInOut-svg
+    @apply w-full h-full absolute inset-0 z-10 overflow-visible
+    fill: var(--dp-sel-color-blocked-background)
+    stroke: var(--dp-sel-color-blocked-border)
+    stroke-width: 2
