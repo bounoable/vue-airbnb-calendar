@@ -26,7 +26,7 @@
     "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
   },
   "scripts": {
-    "build": "rimraf ./dist && bili && yarn build:css && yarn typings && yarn build:css",
+    "build": "rimraf ./dist && bili && yarn build:css",
     "build:css": "bili -c css.bili.config.ts && rm ./dist/style.js"
   },
   "dependencies": {

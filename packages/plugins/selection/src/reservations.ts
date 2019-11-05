@@ -1,5 +1,5 @@
 import Options, { DateFormat, Selection, Interval } from './options'
-import { CalendarItem } from 'vue-airbnb-calendar/dist/use/calendar-items'
+import { CalendarItem } from 'vue-airbnb-calendar/types/use/calendar-items'
 import { intervalOverlapsWith, orderedInterval } from './helpers'
 import { subDays, addDays, isBefore, differenceInDays, isAfter } from 'date-fns'
 import { Analysis, getInfo } from './analysis'
