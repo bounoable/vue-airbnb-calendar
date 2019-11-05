@@ -11377,7 +11377,7 @@ void-elements@^2.0.1:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
-vue-airbnb-calendar@^0.8.2:
+vue-airbnb-calendar@*:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/vue-airbnb-calendar/-/vue-airbnb-calendar-0.8.2.tgz#1733a7b95ddffd12d44eac24828f86913491593c"
   integrity sha512-ezviTlmvdG5c3nKP9Q6U2oiS73K/v2/1bMMCcXH536cx9dweHnzOOVpeB3jysjNbj2K/6r/LnNpR2gP+SAtI2Q==

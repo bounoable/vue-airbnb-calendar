@@ -126,11 +126,11 @@ export default createComponent<Props>({
   </p>
 
   <div class="AirbnbCalendarMonth__calendar" @mouseleave="hoverItem = null">
-    <div class="table-row">
+    <div class="AirbnbCalendarMonth__week">
       <div class="AirbnbCalendarMonth__cell is-heading" v-for="weekday of weekdaysShort" :key="weekday" v-text="weekday"></div>
     </div>
 
-    <div v-for="(row, r) of calendarRows" :key="r" class="table-row">
+    <div v-for="(row, r) of calendarRows" :key="r" class="AirbnbCalendarMonth__week">
       <div v-for="(item, c) of row.items" :key="r * 7 + c" class="AirbnbCalendarMonth__cell">
         <RenderCalendarItem
           ref="calendarItemRefs"
@@ -161,6 +161,9 @@ export default createComponent<Props>({
 
 .AirbnbCalendarMonth__calendar
   @apply w-full table table-fixed
+
+.AirbnbCalendarMonth__week
+  @apply table-row
 
 .AirbnbCalendarMonth__cell
   @apply p-0 table-cell

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { createComponent, ref, computed, onMounted, watch, onBeforeUnmount } from '@vue/composition-api'
 // @ts-ignore
-import PickerMonth from './CalendarMonth.vue'
+import CalendarMonth from './CalendarMonth.vue'
 import Dictionary from '../dictionary'
 import useCalendar, { Calendar } from '../use/calendar'
 import useCalendarStyle from '../use/calendar-style'
@@ -31,7 +31,7 @@ const fixOptions = (options: Options): InternalOptions => {
 }
 
 export default createComponent<Props>({
-  components: { PickerMonth },
+  components: { CalendarMonth },
   props: {
     options: {
       type: Object,
@@ -167,7 +167,7 @@ export default createComponent<Props>({
       :style="monthStyles[calendar.year][calendar.month]"
       class="AirbnbCalendar__month-wrapper"
     >
-      <PickerMonth :context="calendarContexts[i]"/>
+      <CalendarMonth :context="calendarContexts[i]"/>
     </div>
   </transition-group>
 </div>
