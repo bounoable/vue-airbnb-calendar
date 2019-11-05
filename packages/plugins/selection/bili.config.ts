@@ -4,7 +4,7 @@ const config: Config = {
   input: 'src/index.ts',
 
   output: {
-    format: ['umd', 'umd-min', 'cjs'],
+    format: ['esm', 'umd', 'umd-min', 'cjs'],
     moduleName: 'vueAirbnbCalendarSelection',
     target: 'browser',
     fileName: (ctx, def) => {
