@@ -11378,7 +11378,7 @@ void-elements@^2.0.1:
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
 "vue-airbnb-calendar@file:../../core":
-  version "0.7.1"
+  version "0.8.0"
   dependencies:
     "@vue/composition-api" "^0.3.2"
     core-js "^3.3.2"

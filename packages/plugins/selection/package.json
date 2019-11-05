@@ -27,7 +27,8 @@
   },
   "scripts": {
     "dev": "vue-cli-service serve dev/main.ts",
-    "build": "rimraf ./dist && bili && yarn build:css",
+    "build": "rimraf ./dist && bili && yarn build:module && yarn build:css",
+    "build:module": "rimraf ./lib && tsc --p module.tsconfig.json",
     "build:css": "bili -c css.bili.config.ts && rm ./dist/style.js"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import { PluginFn } from 'vue-airbnb-calendar/types/plugin'
+import { PluginFn } from 'vue-airbnb-calendar/lib/plugin'
 import { format, isSameDay } from 'date-fns'
 import { watch, onMounted, Ref, isRef, ref } from '@vue/composition-api'
 import { cssVar } from 'vue-airbnb-calendar/lib/helpers/styles'
