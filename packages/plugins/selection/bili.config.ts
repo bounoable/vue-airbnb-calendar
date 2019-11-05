@@ -28,6 +28,10 @@ const config: Config = {
   },
 
   bundleNodeModules: true,
+
+  babel: {
+    configFile: false,
+  }
 }
 
 export default config

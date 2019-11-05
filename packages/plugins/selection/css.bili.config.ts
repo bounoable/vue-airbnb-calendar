@@ -5,6 +5,10 @@ const config: Config = {
 
   output: {
     format: ['cjs'],
+  },
+
+  babel: {
+    configFile: false,
   }
 }
 

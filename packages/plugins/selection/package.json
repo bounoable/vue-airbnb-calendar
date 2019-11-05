@@ -26,6 +26,7 @@
     "url": "https://github.com/bounoable/vue-airbnb-calendar/issues"
   },
   "scripts": {
+    "dev": "vue-cli-service serve dev/main.ts",
     "build": "rimraf ./dist && bili && yarn build:css",
     "build:css": "bili -c css.bili.config.ts && rm ./dist/style.js"
   },
@@ -41,6 +42,7 @@
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "bili": "^4.8.1",
+    "core-js": "^3.3.2",
     "cssnano": "^4.1.10",
     "lerna": "^3.18.3",
     "node-sass": "^4.13.0",
@@ -51,6 +53,7 @@
     "sass-loader": "^8.0.0",
     "tailwindcss": "^1.1.3",
     "typescript": "^3.6.4",
+    "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   }
 }

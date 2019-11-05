@@ -26,7 +26,8 @@
   },
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && bili && yarn typings && yarn dist:cleanup",
+    "build": "rimraf ./dist && bili && yarn build:module && yarn typings && yarn dist:cleanup",
+    "build:module": "rimraf ./lib && tsc --p module.tsconfig.json",
     "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
     "dist:cleanup": "mv ./dist/index.css ./dist/style.css && rimraf ./dist/*.*.css && rimraf ./dist/components/*.css"
   },
