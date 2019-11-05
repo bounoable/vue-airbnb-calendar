@@ -147,6 +147,7 @@ export default createComponent<Props>({
 </template>
 
 <style lang="sass">
+/* purgecss start ignore */
 .AirbnbCalendarMonth
   @apply p-4
 
@@ -178,4 +179,5 @@ export default createComponent<Props>({
   @apply text-gray-700 text-sm block
   padding-top: 0.4rem
   padding-bottom: 0.4rem
+/* purgecss end ignore */
 </style>
