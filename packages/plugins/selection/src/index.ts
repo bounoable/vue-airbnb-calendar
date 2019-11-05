@@ -28,8 +28,6 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
       clear: clearSelection,
     } = useSelection(rootContext.id, options)
 
-    onDestroy(destroy)
-
     onMounted(() => {
       stopHandles.value.push(
         watch(() => options.value.colors, colors => {
@@ -43,6 +41,18 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
           }
         })
       )
+    })
+
+    onDestroy(() => {
+      destroy()
+
+      for (const state in options.value.colors) {
+        const stateColors = options.value.colors[state as keyof Options<F>['colors']] as CalendarItemColors
+
+        for (const key in stateColors) {
+          document.documentElement.style.removeProperty(cssVar(`sel-color-${state}-${key}`))
+        }
+      }
     })
 
     stopHandles.value.push(
