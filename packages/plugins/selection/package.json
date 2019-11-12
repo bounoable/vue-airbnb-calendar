@@ -18,6 +18,7 @@
   "main": "dist/index.js",
   "unpkg": "dist/vue-airbnb-calendar-plugin-selection.umd.min.js",
   "jsdelivr": "dist/vue-airbnb-calendar-plugin-selection.min.umd.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bounoable/vue-airbnb-calendar.git"
