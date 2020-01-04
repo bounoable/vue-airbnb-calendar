@@ -150,12 +150,11 @@ export default function useSelection<F extends DateFormat>(id: string, options: 
     const selectableWeekday = isSelectableWeekday(item, options.selectableWeekdays)
     const beforeMinDate = isBeforeMinDate(item, options.minDate)
     const afterMaxDate = isAfterMaxDate(item, options.maxDate)
-    const validCheckInOut = validateCheckInOut(selection.value, item, analysis, reservationRanges, minDays, options)
+    const validCheckInOut = validateCheckInOut(selection.value, item, analysis, reservationRanges, selectableWeekday, minDays, options)
   
     const defaultValue = !(
       (options.selectableRanges && !selectableRanges.length) ||
       !validCheckInOut ||
-      !selectableWeekday ||
       beforeMinDate || afterMaxDate
     )
   

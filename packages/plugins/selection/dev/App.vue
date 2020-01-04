@@ -93,12 +93,16 @@ export default createComponent({
               {
                 start: addDays(new Date(), 40),
                 end: addDays(new Date(), 50),
-              }
+              },
+              {
+                start: new Date(2020, 2, 20),
+                end: new Date(2020, 2, 29),
+              },
             ],
             allowCheckInOutOverlap: true,
             allowGapFills: true,
             minDays: 7,
-            maxGap: 3,
+            maxGap: 0,
           },
           // highlight(item, { selectable }) {
           //   return selectable && isSaturday(item.date)

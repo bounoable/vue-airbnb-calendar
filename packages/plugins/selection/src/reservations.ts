@@ -13,6 +13,7 @@ export const validateCheckInOut = <F extends DateFormat>(
   item: CalendarItem,
   analysis: Analysis,
   reservationRanges: Interval[],
+  selectableWeekday: boolean,
   minDays: number,
   options: Options<F>
 ) => {
@@ -174,6 +175,10 @@ export const validateCheckInOut = <F extends DateFormat>(
         return false
       }
     }
+  }
+
+  if (!selectableWeekday) {
+    return false
   }
 
   return true
