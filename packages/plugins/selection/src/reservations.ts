@@ -101,10 +101,13 @@ export const validateCheckInOut = <F extends DateFormat>(
       }
     }
 
-    // check if minDays would be fulfilled
+    // check if minDays would be fulfilled, if selection.start is not a checkOut and allowGapFills is false
     if (
-      intervalOverlapsWith({ start: subDays(item.date, minDays + shift), end: item.date }, reservationRanges) ||
-      intervalOverlapsWith({ start: item.date, end: addDays(item.date, minDays + shift) }, reservationRanges)
+      !resOptions.allowGapFills &&
+      !isCheckOut && (
+        intervalOverlapsWith({ start: subDays(item.date, minDays + shift), end: item.date }, reservationRanges) ||
+        intervalOverlapsWith({ start: item.date, end: addDays(item.date, minDays + shift) }, reservationRanges)
+      )
     ) {
       return false
     }
@@ -126,14 +129,14 @@ export const validateCheckInOut = <F extends DateFormat>(
     if (days < minDays && resOptions.allowGapFills) {
       if (
         isAfter(item.date, selection.from.date) &&
-        getInfo(addDays(item.date, shift), analysis).checkIn &&
-        getInfo(subDays(selection.from.date, shift), analysis).checkOut
+        getInfo(addDays(item.date, shift), analysis).checkIn
+        // && getInfo(subDays(selection.from.date, shift), analysis).checkOut
       ) {
         return true
       } else if (
         isBefore(item.date, selection.from.date) &&
-        getInfo(subDays(item.date, shift), analysis).checkOut &&
-        getInfo(addDays(selection.from.date, shift), analysis).checkIn
+        getInfo(subDays(item.date, shift), analysis).checkOut
+        // && getInfo(addDays(selection.from.date, shift), analysis).checkIn
       ) {
         return true
       }

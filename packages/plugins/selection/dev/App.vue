@@ -71,15 +71,14 @@ export default createComponent({
           // selectable(item, state) {
           //   return false
           // },
-          selectableWeekdays: [
+
+          selectableRanges: [
             {
-              range: {
-                start: new Date(2020, 2, 1),
-                end: new Date(2020, 3, 30),
-              },
-              weekdays: [6],
+              start: new Date(2020, 0, 1),
+              end: new Date(2020, 11, 30),
             },
           ],
+          selectableWeekdays: [6],
           reservations: {
             ranges: [
               {
@@ -92,7 +91,7 @@ export default createComponent({
               },
               {
                 start: addDays(new Date(), 40),
-                end: addDays(new Date(), 50),
+                end: addDays(new Date(), 56),
               },
               {
                 start: new Date(2020, 2, 20),
