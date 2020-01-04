@@ -75,7 +75,7 @@ export default createComponent({
             {
               range: {
                 start: new Date(2020, 2, 1),
-                end: new Date(2020, 2, 31),
+                end: new Date(2020, 3, 30),
               },
               weekdays: [6],
             },

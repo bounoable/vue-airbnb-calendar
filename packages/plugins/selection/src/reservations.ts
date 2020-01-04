@@ -70,6 +70,10 @@ export const validateCheckInOut = <F extends DateFormat>(
       return true
     }
 
+    if (!selectableWeekday) {
+      return false
+    }
+
     // allow check-in with a maximum gap to another reservation of maxGap
     for (const range of reservationRanges) {
       if (isBefore(item.date, range.start)) {
@@ -137,6 +141,12 @@ export const validateCheckInOut = <F extends DateFormat>(
 
     const dateInfo = getInfo(item.date, analysis)
 
+    if (!selection.from) {
+      if (dateInfo.checkOut) {
+        return true
+      }
+    }
+
     if (days < minDays) {
       return false
     }
@@ -144,6 +154,10 @@ export const validateCheckInOut = <F extends DateFormat>(
     // always allow seletion to connect to check-in & check-out days
     if (dateInfo.checkIn != dateInfo.checkOut) {
       return true
+    }
+
+    if (!selectableWeekday) {
+      return false
     }
     
     for (const range of reservationRanges) {
@@ -175,10 +189,6 @@ export const validateCheckInOut = <F extends DateFormat>(
         return false
       }
     }
-  }
-
-  if (!selectableWeekday) {
-    return false
   }
 
   return true
