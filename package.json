@@ -20,5 +20,9 @@
   },
   "scripts": {
     "build": "lerna run build"
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "packages/plugins/*"
+  ]
 }

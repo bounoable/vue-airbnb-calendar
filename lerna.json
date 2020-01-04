@@ -4,5 +4,6 @@
     "packages/core",
     "packages/plugins/*"
   ],
+  "useWorkspaces": true,
   "version": "0.9.1"
 }
