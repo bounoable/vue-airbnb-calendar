@@ -1,6 +1,6 @@
 import { Ref, ref, watch } from '@vue/composition-api'
 import { CalendarItem } from 'vue-airbnb-calendar/types/use/calendar-items'
-import { isBefore, isAfter, isWithinInterval, isSameDay } from 'date-fns'
+import { isBefore, isAfter, isWithinInterval, getDay } from 'date-fns'
 import Dictionary from 'vue-airbnb-calendar/types/dictionary'
 import Options, { Selection, Interval, DateFormat, ReservationOptions } from './options'
 import { intervalOverlapsWith, findRangesOfItem, normalizeRanges } from './helpers'
@@ -63,6 +63,32 @@ const isAfterMaxDate = (item: CalendarItem, maxDate?: Date) => {
   return !!maxDate && isAfter(item.date, maxDate)
 }
 
+const isSelectableWeekday = (item: CalendarItem, weekdays?: number[]|Array<{
+  range: Interval
+  weekdays: number[]
+}>) => {
+  if (!weekdays || !weekdays.length) {
+    return true
+  }
+
+  if (typeof weekdays[0] === 'number') {
+    return (weekdays as number[]).indexOf(getDay(item.date)) > -1
+  }
+
+  for (const config of (weekdays as Array<{
+    range: Interval
+    weekdays: number[]
+  }>)) {
+    if (!isWithinInterval(item.date, config.range)) {
+      continue
+    }
+
+    return config.weekdays.indexOf(getDay(item.date)) > -1
+  }
+
+  return true
+}
+
 export default function useSelection<F extends DateFormat>(id: string, options: Ref<Options<F>>) {
   const {
     selection,
@@ -121,6 +147,7 @@ export default function useSelection<F extends DateFormat>(id: string, options: 
 
     const reservationRanges = normalizeRanges(resOptions.ranges || [])
     const selectableRanges = findRangesOfItem(item, options.selectableRanges)
+    const selectableWeekday = isSelectableWeekday(item, options.selectableWeekdays)
     const beforeMinDate = isBeforeMinDate(item, options.minDate)
     const afterMaxDate = isAfterMaxDate(item, options.maxDate)
     const validCheckInOut = validateCheckInOut(selection.value, item, analysis, reservationRanges, minDays, options)
@@ -128,12 +155,14 @@ export default function useSelection<F extends DateFormat>(id: string, options: 
     const defaultValue = !(
       (options.selectableRanges && !selectableRanges.length) ||
       !validCheckInOut ||
+      !selectableWeekday ||
       beforeMinDate || afterMaxDate
     )
   
     if (options.selectable) {
       return options.selectable(item, {
         selectableRanges,
+        selectableWeekday,
         reservationRanges,
         beforeMinDate,
         afterMaxDate,

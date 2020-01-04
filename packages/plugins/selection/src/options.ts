@@ -50,6 +50,16 @@ export default interface Options<F extends DateFormat = undefined> {
    */
   selectableRanges?: Interval[]|(() => Interval[])
 
+  /**
+   * Specify the selectable weekdays. Defaults to all if none provided.
+   * Can provide an array of configurations for different date ranges.
+   * 0 = Sunday, 6 = Saturday
+   */
+  selectableWeekdays?: number[]|Array<{
+    range: Interval
+    weekdays: number[]
+  }>
+
   reservations?: ReservationOptions
 
   /**
@@ -69,6 +79,11 @@ export default interface Options<F extends DateFormat = undefined> {
      * The selectable ranges the calendar item is in.
      */
     selectableRanges: Interval[]
+
+    /**
+     * Indicates if the calendar item is a selectable weekday.
+     */
+    selectableWeekday: boolean
 
     /**
      * The reservation ranges the calendar item is in.

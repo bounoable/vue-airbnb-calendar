@@ -34,8 +34,9 @@
   },
   "dependencies": {
     "@vue/composition-api": "^0.3.2",
+    "date-fns": "^2.8.1",
     "vue": "^2.6.10",
-    "vue-airbnb-calendar": "file:../../core"
+    "vue-airbnb-calendar": "^0.8.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.144",

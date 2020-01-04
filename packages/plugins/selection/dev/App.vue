@@ -4,7 +4,7 @@ import { AirbnbCalendar } from 'vue-airbnb-calendar'
 import Options from '../../../core/src/options'
 import SelectionPlugin from '../src'
 import SelectionOptions from '../src/options'
-import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays } from 'date-fns'
+import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays, getDay } from 'date-fns'
 import de from 'date-fns/locale/de'
 import 'vue-airbnb-calendar/dist/style.css'
 import '../src/style.sass'
@@ -71,6 +71,15 @@ export default createComponent({
           // selectable(item, state) {
           //   return false
           // },
+          selectableWeekdays: [
+            {
+              range: {
+                start: new Date(2020, 2, 1),
+                end: new Date(2020, 2, 31),
+              },
+              weekdays: [6],
+            },
+          ],
           reservations: {
             ranges: [
               {
