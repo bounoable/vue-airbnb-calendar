@@ -44,7 +44,7 @@ export default createComponent<Props>({
       removeClass,
       styles: calendarItemStyles,
       classes: calendarItemClasses,
-    } = useCalendarItemStyle(calendarItems, computed(() => props.context))
+    } = useCalendarItemStyle(calendarItems as any, computed(() => props.context))
 
     const isVisible = computed(() => {
       return props.context.visibleCalendars.indexOf(props.context.calendar) > -1

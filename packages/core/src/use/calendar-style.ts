@@ -26,6 +26,7 @@ export default function useCalendarStyle(renderedCalendars: Ref<Calendar[]>, vis
       
       if (visibleCalendars.value.indexOf(renderedCalendars.value[i]) > -1) {
         style.position = 'static'
+        style.width = widthPercentage + '%'
       } else {
         style.position = 'absolute'
         style.width = widthPercentage + '%'

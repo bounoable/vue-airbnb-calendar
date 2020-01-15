@@ -57,7 +57,7 @@ export default createComponent<Props>({
 
     const {
       monthStyles,
-    } = useCalendarStyle(renderedCalendars, visibleCalendars)
+    } = useCalendarStyle(renderedCalendars as any, visibleCalendars as any)
 
     const ready = ref(false)
 
@@ -68,11 +68,11 @@ export default createComponent<Props>({
     })
 
     const rootContext = computed<RootContext>(() => ({
-      options: options.value,
-      id: calendarId,
-      el: calendar.value,
-      visibleCalendars: visibleCalendars.value,
-      calendarItemPlugins: calendarItemPlugins.value,
+      options: options.value as any,
+      id: calendarId as any,
+      el: calendar.value as any,
+      visibleCalendars: visibleCalendars.value as any,
+      calendarItemPlugins: calendarItemPlugins.value as any,
     }))
 
     const calendarContexts = computed<CalendarContext[]>(() => {
@@ -114,11 +114,11 @@ export default createComponent<Props>({
     const watchers = props.options.watch || {}
 
     if (watchers.visibleCalendars) {
-      onBeforeUnmount(watch(visibleCalendars, watchers.visibleCalendars.bind(options)))
+      onBeforeUnmount(watch(visibleCalendars as any, watchers.visibleCalendars.bind(options)) as any)
     }
 
     if (watchers.renderedCalendars) {
-      onBeforeUnmount(watch(renderedCalendars, watchers.renderedCalendars.bind(options)))
+      onBeforeUnmount(watch(renderedCalendars as any, watchers.renderedCalendars.bind(options)) as any)
     }
 
     onBeforeUnmount(() => {
@@ -213,6 +213,7 @@ export default createComponent<Props>({
 
 .AirbnbCalendar__month-wrapper
   @apply top-0
+  max-width: 100%
 
 .AirbnbCalendar__month-transition
   &-move

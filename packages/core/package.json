@@ -26,13 +26,14 @@
   },
   "types": "types/index.d.ts",
   "scripts": {
+    "dev": "vue-cli-service serve dev/main.ts",
     "build": "rimraf ./dist && bili && yarn build:module && yarn typings && yarn dist:cleanup",
     "build:module": "rimraf ./lib && tsc --p module.tsconfig.json",
     "typings": "rimraf ./types && tsc --declaration --emitDeclarationOnly --outDir ./types",
     "dist:cleanup": "mv ./dist/index.css ./dist/style.css && rimraf ./dist/*.*.css && rimraf ./dist/components/*.css"
   },
   "dependencies": {
-    "@vue/composition-api": "^0.3.2",
+    "@vue/composition-api": "^0.3.4",
     "core-js": "^3.3.2",
     "date-fns": "^2.4.1",
     "lodash": "^4.17.15",

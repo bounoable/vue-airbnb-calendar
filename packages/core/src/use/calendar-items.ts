@@ -17,27 +17,27 @@ export default function useCalendarItems(calendar: Ref<Calendar>) {
   })
 
   const lastOfMonth = computed(() => {
-    return endOfMonth(firstOfMonth.value)
+    return endOfMonth(firstOfMonth.value as Date)
   })
 
   const currentMonthDates = computed(() => {
     return eachDayOfInterval({
-      start: firstOfMonth.value,
-      end: lastOfMonth.value,
+      start: firstOfMonth.value as Date,
+      end: lastOfMonth.value as Date,
     })
   })
 
   const prevMonthDates = computed(() => {
     return eachDayOfInterval({
-      start: subMonths(firstOfMonth.value, 1),
+      start: subMonths(firstOfMonth.value as Date, 1),
       end: new Date(firstOfMonth.value.getFullYear(), firstOfMonth.value.getMonth(), 0),
     })
   })
 
   const nextMonthDates = computed(() => {
     return eachDayOfInterval({
-      start: addMonths(firstOfMonth.value, 1),
-      end: addMonths(lastOfMonth.value, 1),
+      start: addMonths(firstOfMonth.value as Date, 1),
+      end: addMonths(lastOfMonth.value as Date, 1),
     })
   })
 

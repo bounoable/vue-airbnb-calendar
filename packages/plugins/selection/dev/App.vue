@@ -14,7 +14,7 @@ export default createComponent({
 
   setup(props, ctx) {
     const options = computed<Partial<Options>>(() => ({
-      maxMonths: 12,
+      maxMonths: 24,
       // dateFnsLocale: de,
       // shortWeekdaysLength: 2,
       // startMonth: addMonths(new Date(), 3),
@@ -136,7 +136,7 @@ export default createComponent({
 <template>
 <div id="app">
   <div class="flex justify-center items-start h-screen p-4 lg:pt-64">
-    <div>
+    <div class="container">
       <button class="mb-10 border rounded bg-gray-100 px-4 py-2 text-gray-700 font-medium focus:outline-none lg:hover:bg-gray-200" @click="active = !active">Toggle</button>
 
       <div v-if="active" class="border container">
