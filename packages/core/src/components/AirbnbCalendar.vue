@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createComponent, ref, computed, onMounted, watch, onBeforeUnmount } from '@vue/composition-api'
+import { defineComponent, ref, computed, onMounted, watch, onBeforeUnmount } from '@vue/composition-api'
 // @ts-ignore
 import CalendarMonth from './CalendarMonth.vue'
 import Dictionary from '../dictionary'
@@ -30,7 +30,7 @@ const fixOptions = (options: Options): InternalOptions => {
   }
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: { CalendarMonth },
   props: {
     options: {

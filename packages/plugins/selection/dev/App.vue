@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createComponent, ref, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, ref, computed, onMounted } from '@vue/composition-api'
 import { AirbnbCalendar } from 'vue-airbnb-calendar'
 import Options from '../../../core/src/options'
 import SelectionPlugin from '../src'
@@ -9,7 +9,7 @@ import de from 'date-fns/locale/de'
 import 'vue-airbnb-calendar/dist/style.css'
 import '../src/style.sass'
 
-export default createComponent({
+export default defineComponent({
   components: { AirbnbCalendar },
 
   setup(props, ctx) {

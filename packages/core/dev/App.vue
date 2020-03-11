@@ -1,11 +1,11 @@
 <script lang="ts">
-import { createComponent, ref, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, ref, computed, onMounted } from '@vue/composition-api'
 import { AirbnbCalendar } from '../src/index'
 import Options from '../src/options'
 import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays, getDay } from 'date-fns'
 import de from 'date-fns/locale/de'
 
-export default createComponent({
+export default defineComponent({
   components: { AirbnbCalendar },
 
   setup(props, ctx) {

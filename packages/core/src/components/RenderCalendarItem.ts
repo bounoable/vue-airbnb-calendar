@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import { CalendarItem } from '../use/calendar-items'
 import { CalendarItemPlugin } from '../plugin'
 import { format } from 'date-fns'
@@ -10,7 +10,7 @@ interface Props {
   styles: any
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   props: {
     item: Object,
     renderFns: Array,

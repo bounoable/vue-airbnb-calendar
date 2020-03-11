@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createComponent, computed, ref, onMounted, onBeforeMount, onBeforeUnmount, Ref } from '@vue/composition-api'
+import { defineComponent, computed, ref, onMounted, onBeforeMount, onBeforeUnmount, Ref } from '@vue/composition-api'
 import { eachDayOfInterval, endOfMonth, subMonths, addMonths, parse as parseDate, format as formatDate } from 'date-fns'
 import { Calendar } from '../use/calendar'
 import dateFnsEnUs from 'date-fns/locale/en-US'
@@ -15,7 +15,7 @@ interface Props {
   context: CalendarContext
 }
 
-export default createComponent<Props>({
+export default defineComponent<Props>({
   components: { RenderCalendarItem },
   props: {
     context: Object,
