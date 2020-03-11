@@ -40,7 +40,7 @@ export default createComponent({
 <template>
 <div id="app">
   <div class="flex justify-center items-start h-screen p-4 lg:pt-64">
-    <div class="container">
+    <div class="mx-auto" style="width: 900px">
       <button class="mb-10 border rounded bg-gray-100 px-4 py-2 text-gray-700 font-medium focus:outline-none lg:hover:bg-gray-200" @click="active = !active">Toggle</button>
 
       <div v-if="active" class="border">

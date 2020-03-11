@@ -33,10 +33,10 @@
     "build:css": "bili -c css.bili.config.ts && rm ./dist/style.js"
   },
   "dependencies": {
-    "@vue/composition-api": "^0.3.2",
+    "@vue/composition-api": "^0.4.0",
     "date-fns": "^2.8.1",
     "vue": "^2.6.10",
-    "vue-airbnb-calendar": "^0.9.6"
+    "vue-airbnb-calendar": "0.9.6"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.144",

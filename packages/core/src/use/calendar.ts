@@ -15,7 +15,7 @@ export default function useCalendar(picker: Ref<HTMLElement|null>, options: Ref<
   const roHandler = debounce((entries: any) => {
     for (const entry of entries) {
       const target = entry.target as HTMLElement
-      pickerWidth.value = target.clientWidth
+      pickerWidth.value = Math.round(target.clientWidth)
     }
   }, 250, { leading: false })
 
