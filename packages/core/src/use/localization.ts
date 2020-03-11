@@ -19,7 +19,7 @@ export default function useLocalization(locale: Ref<Locale>, options: Ref<Option
   const weekdayNames = eachDayOfInterval({
       start: startOfWeek(now),
       end: endOfWeek(now),
-    }).map(d => locale.value.localize.day(d.getDay()) as string)
+    }).map(d => locale.value.localize?.day(d.getDay()) || '' as string)
 
   const weekdaysShort = weekdayNames.map(name => name.substr(0, options.value.shortWeekdaysLength))
 
