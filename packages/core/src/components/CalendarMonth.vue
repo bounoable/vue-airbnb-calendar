@@ -50,7 +50,7 @@ export default defineComponent<Props>({
       return props.context.visibleCalendars.indexOf(props.context.calendar) > -1
     })
 
-    const calendarItemRefs = ref<any[]>(null)
+    const calendarItemRefs = ref<any[]|null>(null)
 
     const calendarItemEventListeners = ref<{
       el: HTMLElement

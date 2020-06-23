@@ -42,7 +42,7 @@ export default defineComponent<Props>({
   setup(props, { root: { $nextTick }, slots }) {
     const options = computed(() => fixOptions(props.options))
     const calendarId = uuid().substr(0, 8)
-    const calendar = ref<HTMLElement>(null)
+    const calendar = ref<HTMLElement|null>(null)
 
     const {
       startCalendar,
