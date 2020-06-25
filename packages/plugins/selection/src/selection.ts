@@ -99,7 +99,7 @@ export default function useSelection<F extends DateFormat>(id: string, options: 
       from: null,
       to: null,
     }),
-    hoverItem: ref<CalendarItem>(null),
+    hoverItem: ref<CalendarItem|null>(null),
     analysis: ref({}),
   })
 

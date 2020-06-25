@@ -8,7 +8,7 @@ import { findRangesOfItem } from './helpers'
 import { renderCheckInDay, renderCheckOutDay } from './renderCheckInOutDay'
 
 export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>> = {}): PluginFn => {
-  const options = isRef(opt) ? opt : ref<Options<F>>(opt)
+  const options = (isRef(opt) ? opt : ref<Options<F>>(opt)) as Ref<Options<F>>
 
   return (rootContext, { installRootPlugin, installCalendarItemPlugin }, onDestroy) => {
     const {
@@ -94,7 +94,7 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
           return classes
         }
   
-        const selectable = isSelectable(item, analysis.value, options.value)
+        const selectable = isSelectable(item, analysis.value, options.value as Options<F>)
         const blocked = hasReservation(item, analysis.value)
         const hovered = isHovered(item)
         const withinSelection = isWithinSelection(item)
