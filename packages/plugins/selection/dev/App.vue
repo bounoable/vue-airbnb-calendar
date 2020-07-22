@@ -72,6 +72,10 @@ export default defineComponent({
           //   return false
           // },
 
+          highlight(item, state) {
+            return state.selectable && isSaturday(item.date)
+          },
+
           selectableRanges: [
             {
               start: new Date(2020, 0, 1),
