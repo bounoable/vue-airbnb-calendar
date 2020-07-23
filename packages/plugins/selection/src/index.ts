@@ -74,7 +74,7 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
             to,
           }])
         }
-      }, { deep: true })
+      }, { deep: true, immediate: true })
     )
 
     installRootPlugin({

@@ -31,7 +31,7 @@ export default function useCalendar(picker: Ref<HTMLElement|null>, options: Ref<
     if (!oldPicker && picker) {
       ro.observe(picker)
     }
-  })
+  }, { immediate: true })
 
   const now = new Date()
 

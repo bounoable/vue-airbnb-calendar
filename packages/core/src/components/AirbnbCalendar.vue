@@ -65,7 +65,7 @@ export default defineComponent<Props>({
       if (!oldWidth && width) {
         ready.value = true
       }
-    })
+    }, { immediate: true })
 
     const rootContext = computed<RootContext>(() => ({
       options: options.value as any,

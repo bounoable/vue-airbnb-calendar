@@ -178,7 +178,7 @@ export default function useSelection<F extends DateFormat>(id: string, options: 
   stopHandles.value.push(
     watch(options, options => {
       analysis.value = analyzeOptions(options)
-    })
+    }, { immediate: true })
   )
 
   const destroy = () => {
