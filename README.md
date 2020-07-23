@@ -1,4 +1,4 @@
-**This project is a work in progress and is subject to change. It is very likely that I will change the dependency to Vue 3.x as soon as it's relased.**
+**Don't use this library. It's not maintained. Use this instead: https://github.com/bounoable/calendair**
 
 # Vue Airbnb Calendar
 
