@@ -47,13 +47,13 @@ export default <F extends DateFormat = undefined>(opt: Options<F>|Ref<Options<F>
       destroy()
 
       // Doesn't work anymore ?
-      for (const state in options.value.colors) {
-        const stateColors = options.value.colors[state as keyof Options<F>['colors']] as CalendarItemColors
+      // for (const state in options.value.colors) {
+      //   const stateColors = options.value.colors[state as keyof Options<F>['colors']] as CalendarItemColors
 
-        for (const key in stateColors) {
-          document.documentElement.style.removeProperty(cssVar(`sel-color-${state}-${key}`))
-        }
-      }
+      //   for (const key in stateColors) {
+      //     document.documentElement.style.removeProperty(cssVar(`sel-color-${state}-${key}`))
+      //   }
+      // }
     })
 
     stopHandles.value.push(
