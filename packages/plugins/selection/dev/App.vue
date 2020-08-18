@@ -4,10 +4,12 @@ import { AirbnbCalendar } from 'vue-airbnb-calendar'
 import Options from '../../../core/src/options'
 import SelectionPlugin from '../src'
 import SelectionOptions from '../src/options'
-import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays, getDay } from 'date-fns'
+import { subDays, addDays, subMonths, addMonths, isSaturday, isWednesday, isMonday, isTuesday, differenceInDays, getDay, isBefore } from 'date-fns'
 import de from 'date-fns/locale/de'
 import 'vue-airbnb-calendar/dist/style.css'
 import '../src/style.sass'
+
+const today = new Date()
 
 export default defineComponent({
   components: { AirbnbCalendar },
@@ -106,6 +108,18 @@ export default defineComponent({
             allowGapFills: true,
             minDays: 7,
             maxGap: 0,
+          },
+          selectableWeekdays: [3],
+          selectable(item, { defaultValue }) {
+            if (!defaultValue) {
+              return false
+            }
+
+            if (isBefore(item.date, today)) {
+              return false
+            }
+
+            return true
           },
           // highlight(item, { selectable }) {
           //   return selectable && isSaturday(item.date)
