@@ -33,7 +33,7 @@
     "dist:cleanup": "mv ./dist/index.css ./dist/style.css && rimraf ./dist/*.*.css && rimraf ./dist/components/*.css"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.0.0-beta.10",
+    "@vue/composition-api": "^1.0.0-beta.16",
     "core-js": "^3.3.2",
     "date-fns": "^2.4.1",
     "lodash": "^4.17.15",
